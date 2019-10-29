@@ -13,5 +13,5 @@ public interface IAdMob {
 
     public View getBannerView();
 
-    public InterstitialAd getInterstitialAd();
+    public IInterstitialAd getIInterstitialAd();
 }

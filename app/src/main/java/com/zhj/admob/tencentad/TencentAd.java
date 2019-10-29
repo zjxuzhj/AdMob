@@ -1,13 +1,14 @@
-package com.zhj.admob;
+package com.zhj.admob.tencentad;
 
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 
-import com.google.android.gms.ads.InterstitialAd;
 import com.qq.e.ads.banner2.UnifiedBannerADListener;
 import com.qq.e.ads.banner2.UnifiedBannerView;
 import com.qq.e.comm.util.AdError;
+import com.zhj.admob.IAdMob;
+import com.zhj.admob.IInterstitialAd;
 
 public class TencentAd implements IAdMob {
     public static final String BannerID2 = "6030189801366430";
@@ -16,7 +17,7 @@ public class TencentAd implements IAdMob {
     private String posId;
     private Activity context;
 
-    TencentAd(Activity context) {
+    public TencentAd(Activity context) {
         this.context = context;
     }
 
@@ -83,7 +84,8 @@ public class TencentAd implements IAdMob {
     }
 
     @Override
-    public InterstitialAd getInterstitialAd() {
-        return null;
+    public IInterstitialAd getIInterstitialAd() {
+        return new InterstitialAd(context);
     }
+
 }

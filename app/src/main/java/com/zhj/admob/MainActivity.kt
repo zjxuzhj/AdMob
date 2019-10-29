@@ -1,8 +1,10 @@
 package com.zhj.admob
 
-import android.content.Context
+import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.zhj.admob.googlead.GoogleAd
+import com.zhj.admob.tencentad.TencentAd
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -21,16 +23,14 @@ class MainActivity : AppCompatActivity() {
 //                interstitialAd.loadAd(AdRequest.Builder().build())
 //            }
 //        }
-//        button.setOnClickListener {
-//            if (interstitialAd.isLoaded) {
-//                interstitialAd.show()
-//            } else {
-//                Log.d("TAG", "The interstitial wasn't loaded yet.")
-//            }
-//        }
-
         val iAdMob = TencentAd(this)
-        fl_ad_view.addView(iAdMob.bannerView)
+        val iInterstitialAd = iAdMob.iInterstitialAd
+        button.setOnClickListener {
+            iInterstitialAd.show()
+        }
+
+
+//        fl_ad_view.addView(iAdMob.bannerView)
     }
 
     /**
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
      * @param context
      * @return
      */
-    private fun getAdMob(context: Context): IAdMob {
+    private fun getAdMob(context: Activity): IAdMob {
         return GoogleAd(context)
     }
 
