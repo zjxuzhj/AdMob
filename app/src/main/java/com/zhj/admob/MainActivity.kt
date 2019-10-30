@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.qq.e.comm.util.AdError
-import com.zhj.admob.googlead.GoogleAd
 import com.zhj.admob.tencentad.TencentAd
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
+    val BannerID2 = "6030189801366430"
+    val APPID = "1106662554"
+    val interstitialId = "9030688981739111"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 //                interstitialAd.loadAd(AdRequest.Builder().build())
 //            }
 //        }
-        val iAdMob = GoogleAd(this)
+        val iAdMob = getAdMob(this, APPID, BannerID2, interstitialId)
         val iInterstitialAd = iAdMob.iInterstitialAd
         iInterstitialAd.addInterstitialADListener(this, object : IInterstitialAd.InterstitialADListener {
             override fun onNoAD(var1: AdError?) {
@@ -66,13 +68,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * 获取地图服务
+     * 获取广告服务
      *
      * @param context
      * @return
      */
-    private fun getAdMob(context: Activity): IAdMob {
-        return GoogleAd(context)
+    private fun getAdMob(context: Activity, appId: String, bannerId: String, interstitialId: String): IAdMob {
+        return TencentAd(context, appId, bannerId, interstitialId)
     }
 
 }

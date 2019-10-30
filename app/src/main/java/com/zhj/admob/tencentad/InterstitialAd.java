@@ -13,10 +13,11 @@ import com.zhj.admob.IInterstitialAd;
  */
 public class InterstitialAd implements IInterstitialAd {
     private UnifiedInterstitialAD interstitialAD;
-    public static final String APPID = "1106662554";
+    private String appId, interstitialId;
 
-    InterstitialAd(Activity context) {
-
+    InterstitialAd(Activity context, String appId, String interstitialId) {
+        this.appId = appId;
+        this.interstitialId = interstitialId;
     }
 
     @Override
@@ -26,48 +27,47 @@ public class InterstitialAd implements IInterstitialAd {
 
     @Override
     public void showAsPopupWindow() {
-        interstitialAD.showAsPopupWindow();
+
     }
 
     @Override
     public void addInterstitialADListener(Activity context, final InterstitialADListener unifiedInterstitialADListener) {
         if (interstitialAD == null) {
-            String posId = "9030688981739111";
-            interstitialAD = new UnifiedInterstitialAD(context, APPID, posId, new UnifiedInterstitialADListener() {
+            interstitialAD = new UnifiedInterstitialAD(context, appId, interstitialId, new UnifiedInterstitialADListener() {
                 @Override
                 public void onADReceive() {
-                    Log.i("aaaaaa","onADReceive");
+                    Log.i("aaaaaa", "onADReceive");
                     unifiedInterstitialADListener.onAdLoaded();
                 }
 
                 @Override
                 public void onNoAD(AdError adError) {
-                    Log.i("aaaaaa","adError");
+                    Log.i("aaaaaa", "adError");
                 }
 
                 @Override
                 public void onADOpened() {
-                    Log.i("aaaaaa","onADOpened");
+                    Log.i("aaaaaa", "onADOpened");
                 }
 
                 @Override
                 public void onADExposure() {
-                    Log.i("aaaaaa","onADExposure");
+                    Log.i("aaaaaa", "onADExposure");
                 }
 
                 @Override
                 public void onADClicked() {
-                    Log.i("aaaaaa","onADClicked");
+                    Log.i("aaaaaa", "onADClicked");
                 }
 
                 @Override
                 public void onADLeftApplication() {
-                    Log.i("aaaaaa","onADLeftApplication");
+                    Log.i("aaaaaa", "onADLeftApplication");
                 }
 
                 @Override
                 public void onADClosed() {
-                    Log.i("aaaaaa","onADClosed");
+                    Log.i("aaaaaa", "onADClosed");
                     unifiedInterstitialADListener.onAdClosed();
                 }
             });

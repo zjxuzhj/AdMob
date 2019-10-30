@@ -11,13 +11,15 @@ import com.zhj.admob.IAdMob;
 import com.zhj.admob.IInterstitialAd;
 
 public class TencentAd implements IAdMob {
-    public static final String BannerID2 = "6030189801366430";
-    public static final String APPID = "1106662554";
     private UnifiedBannerView bv;
     private String posId;
     private Activity context;
+    private String appId, bannderId, interstitialId;
 
-    public TencentAd(Activity context) {
+    public TencentAd(Activity context, String appId, String bannerId, String interstitialId) {
+        this.appId = appId;
+        this.bannderId = bannerId;
+        this.interstitialId = interstitialId;
         this.context = context;
     }
 
@@ -28,12 +30,12 @@ public class TencentAd implements IAdMob {
 
     @Override
     public View getBannerView() {
-        String posId = BannerID2;
+        String posId = bannderId;
         if (this.bv != null && this.posId.equals(posId)) {
             return this.bv;
         }
         this.posId = posId;
-        this.bv = new UnifiedBannerView(context, APPID, posId, new UnifiedBannerADListener() {
+        this.bv = new UnifiedBannerView(context, appId, posId, new UnifiedBannerADListener() {
 
             @Override
             public void onNoAD(AdError error) {
@@ -45,37 +47,37 @@ public class TencentAd implements IAdMob {
 
             @Override
             public void onADReceive() {
-                    Log.i("aa","onADReceive");
+                Log.i("aa", "onADReceive");
             }
 
             @Override
             public void onADExposure() {
-                Log.i("aa","onADExposure");
+                Log.i("aa", "onADExposure");
             }
 
             @Override
             public void onADClosed() {
-                Log.i("aa","onADClosed");
+                Log.i("aa", "onADClosed");
             }
 
             @Override
             public void onADClicked() {
-                Log.i("aa","onADClicked");
+                Log.i("aa", "onADClicked");
             }
 
             @Override
             public void onADLeftApplication() {
-                Log.i("aa","onADLeftApplication");
+                Log.i("aa", "onADLeftApplication");
             }
 
             @Override
             public void onADOpenOverlay() {
-                Log.i("aa","onADOpenOverlay");
+                Log.i("aa", "onADOpenOverlay");
             }
 
             @Override
             public void onADCloseOverlay() {
-                Log.i("aa","onADCloseOverlay");
+                Log.i("aa", "onADCloseOverlay");
             }
 
         });
@@ -85,7 +87,7 @@ public class TencentAd implements IAdMob {
 
     @Override
     public IInterstitialAd getIInterstitialAd() {
-        return new InterstitialAd(context);
+        return new InterstitialAd(context,appId,interstitialId);
     }
 
 }
