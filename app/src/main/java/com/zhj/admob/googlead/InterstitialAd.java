@@ -3,6 +3,7 @@ package com.zhj.admob.googlead;
 import android.app.Activity;
 import android.util.Log;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.zhj.admob.IInterstitialAd;
 
@@ -11,20 +12,9 @@ import com.zhj.admob.IInterstitialAd;
  */
 public class InterstitialAd implements IInterstitialAd {
     private com.google.android.gms.ads.InterstitialAd interstitialAD;
-    public static final String APPID = "1106662554";
 
     InterstitialAd(Activity context) {
-        com.google.android.gms.ads.InterstitialAd mInterstitialAd = new com.google.android.gms.ads.InterstitialAd(context);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-    }
 
-    public com.google.android.gms.ads.InterstitialAd getInterstitialAD() {
-        return interstitialAD;
-    }
-
-    public void setInterstitialAD(com.google.android.gms.ads.InterstitialAd interstitialAD) {
-        this.interstitialAD = interstitialAD;
     }
 
     @Override
@@ -35,4 +25,49 @@ public class InterstitialAd implements IInterstitialAd {
             Log.d("TAG", "The interstitial wasn't loaded yet.");
         }
     }
+
+    @Override
+    public void showAsPopupWindow() {
+    }
+
+    @Override
+    public void addInterstitialADListener(Activity context, final InterstitialADListener unifiedInterstitialADListener) {
+        interstitialAD = new com.google.android.gms.ads.InterstitialAd(context);
+        interstitialAD.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        interstitialAD.loadAd(new AdRequest.Builder().build());
+        interstitialAD.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                unifiedInterstitialADListener.onAdLoaded();
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when the ad is displayed.
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the interstitial ad is closed.
+                unifiedInterstitialADListener.onAdClosed();
+            }
+        });
+    }
+
 }

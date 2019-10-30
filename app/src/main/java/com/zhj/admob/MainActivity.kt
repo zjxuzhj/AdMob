@@ -2,7 +2,9 @@ package com.zhj.admob
 
 import android.app.Activity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.qq.e.comm.util.AdError
 import com.zhj.admob.googlead.GoogleAd
 import com.zhj.admob.tencentad.TencentAd
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,8 +25,38 @@ class MainActivity : AppCompatActivity() {
 //                interstitialAd.loadAd(AdRequest.Builder().build())
 //            }
 //        }
-        val iAdMob = TencentAd(this)
+        val iAdMob = GoogleAd(this)
         val iInterstitialAd = iAdMob.iInterstitialAd
+        iInterstitialAd.addInterstitialADListener(this, object : IInterstitialAd.InterstitialADListener {
+            override fun onNoAD(var1: AdError?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onAdOpened() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onADExposure() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onAdClicked() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onAdLeftApplication() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onAdClosed() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onAdLoaded() {
+                Toast.makeText(this@MainActivity, "成功", Toast.LENGTH_SHORT).show()
+            }
+
+        })
         button.setOnClickListener {
             iInterstitialAd.show()
         }

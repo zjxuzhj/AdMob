@@ -16,12 +16,28 @@ public class InterstitialAd implements IInterstitialAd {
     public static final String APPID = "1106662554";
 
     InterstitialAd(Activity context) {
-        String posId = "9030688981739111";
+
+    }
+
+    @Override
+    public void show() {
+        interstitialAD.show();
+    }
+
+    @Override
+    public void showAsPopupWindow() {
+        interstitialAD.showAsPopupWindow();
+    }
+
+    @Override
+    public void addInterstitialADListener(Activity context, final InterstitialADListener unifiedInterstitialADListener) {
         if (interstitialAD == null) {
+            String posId = "9030688981739111";
             interstitialAD = new UnifiedInterstitialAD(context, APPID, posId, new UnifiedInterstitialADListener() {
                 @Override
                 public void onADReceive() {
                     Log.i("aaaaaa","onADReceive");
+                    unifiedInterstitialADListener.onAdLoaded();
                 }
 
                 @Override
@@ -52,22 +68,10 @@ public class InterstitialAd implements IInterstitialAd {
                 @Override
                 public void onADClosed() {
                     Log.i("aaaaaa","onADClosed");
+                    unifiedInterstitialADListener.onAdClosed();
                 }
             });
             interstitialAD.loadAD();
         }
-    }
-
-    public UnifiedInterstitialAD getInterstitialAD() {
-        return interstitialAD;
-    }
-
-    public void setInterstitialAD(UnifiedInterstitialAD interstitialAD) {
-        this.interstitialAD = interstitialAD;
-    }
-
-    @Override
-    public void show() {
-        interstitialAD.show();
     }
 }

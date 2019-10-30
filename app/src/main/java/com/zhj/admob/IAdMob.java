@@ -2,8 +2,6 @@ package com.zhj.admob;
 
 import android.view.View;
 
-import com.google.android.gms.ads.InterstitialAd;
-
 public interface IAdMob {
     /**
      * 加载必要资源
@@ -11,7 +9,15 @@ public interface IAdMob {
      */
     public void initAdSdk();
 
+    /**
+     * 获得banner的view
+     * @return
+     */
     public View getBannerView();
 
+    /**
+     * 获得一个
+     * @return
+     */
     public IInterstitialAd getIInterstitialAd();
 }
