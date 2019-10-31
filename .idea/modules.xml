@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AdMob.iml" filepath="$PROJECT_DIR$/AdMob.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NativeTemplatesAndroid-1.0.0/NativeTemplatesAndroid-1.0.0.iml" filepath="$PROJECT_DIR$/NativeTemplatesAndroid-1.0.0/NativeTemplatesAndroid-1.0.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/googlead/googlead.iml" filepath="$PROJECT_DIR$/googlead/googlead.iml" />
       <module fileurl="file://$PROJECT_DIR$/tencentad/tencentad.iml" filepath="$PROJECT_DIR$/tencentad/tencentad.iml" />
