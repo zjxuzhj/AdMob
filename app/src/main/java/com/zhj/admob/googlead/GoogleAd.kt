@@ -9,9 +9,9 @@ import com.google.android.gms.ads.MobileAds
 import com.zhj.admob.IAdMob
 import com.zhj.admob.IInterstitialAd
 
-class GoogleAd(private val context: Activity) : IAdMob {
+class GoogleAd(private val context: Activity, appId: String, private val bannerId: String, private val interstitialId: String) : IAdMob {
     override fun getIInterstitialAd(): IInterstitialAd {
-        return InterstitialAd(context)
+        return InterstitialAd(context,interstitialId)
     }
 
     override fun initAdSdk() {
@@ -21,7 +21,7 @@ class GoogleAd(private val context: Activity) : IAdMob {
     override fun getBannerView(): View {
         val adView = AdView(context)
         adView.adSize = AdSize.BANNER
-        adView.adUnitId = "ca-app-pub-3940256099942544/6300978111"
+        adView.adUnitId = bannerId
         adView.loadAd(AdRequest.Builder().build())
         return adView
     }

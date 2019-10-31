@@ -14,13 +14,13 @@ public class TencentAd implements IAdMob {
     private UnifiedBannerView bv;
     private String posId;
     private Activity context;
-    private String appId, bannderId, interstitialId;
+    private String appId, bannerId, interstitialId;
 
     public TencentAd(Activity context, String appId, String bannerId, String interstitialId) {
-        this.appId = appId;
-        this.bannderId = bannerId;
-        this.interstitialId = interstitialId;
         this.context = context;
+        this.appId = appId;
+        this.bannerId = bannerId;
+        this.interstitialId = interstitialId;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class TencentAd implements IAdMob {
 
     @Override
     public View getBannerView() {
-        String posId = bannderId;
+        String posId = bannerId;
         if (this.bv != null && this.posId.equals(posId)) {
             return this.bv;
         }
@@ -87,7 +87,7 @@ public class TencentAd implements IAdMob {
 
     @Override
     public IInterstitialAd getIInterstitialAd() {
-        return new InterstitialAd(context,appId,interstitialId);
+        return new InterstitialAd(context, appId, interstitialId);
     }
 
 }

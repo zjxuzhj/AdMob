@@ -12,9 +12,10 @@ import com.zhj.admob.IInterstitialAd;
  */
 public class InterstitialAd implements IInterstitialAd {
     private com.google.android.gms.ads.InterstitialAd interstitialAD;
+    private String interstitialId;
 
-    InterstitialAd(Activity context) {
-
+    InterstitialAd(Activity context, String interstitialId) {
+        this.interstitialId = interstitialId;
     }
 
     @Override
@@ -33,7 +34,7 @@ public class InterstitialAd implements IInterstitialAd {
     @Override
     public void addInterstitialADListener(Activity context, final InterstitialADListener unifiedInterstitialADListener) {
         interstitialAD = new com.google.android.gms.ads.InterstitialAd(context);
-        interstitialAD.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        interstitialAD.setAdUnitId(interstitialId);
         interstitialAD.loadAd(new AdRequest.Builder().build());
         interstitialAD.setAdListener(new AdListener() {
             @Override
