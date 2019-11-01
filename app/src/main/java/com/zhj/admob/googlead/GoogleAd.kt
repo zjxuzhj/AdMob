@@ -1,6 +1,7 @@
 package com.zhj.admob.googlead
 
 import android.app.Activity
+import android.content.Intent
 import android.view.View
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
@@ -9,7 +10,11 @@ import com.google.android.gms.ads.MobileAds
 import com.zhj.admob.IAdMob
 import com.zhj.admob.IInterstitialAd
 
-class GoogleAd(private val context: Activity, appId: String, private val bannerId: String, private val interstitialId: String) : IAdMob {
+class GoogleAd(private val context: Activity, appId: String, private val bannerId: String, private val interstitialId: String, splashPosId: String) : IAdMob {
+    override fun getSplashAD(intent: Intent) {
+
+    }
+
     override fun getIInterstitialAd(): IInterstitialAd {
         return InterstitialAd(context,interstitialId)
     }

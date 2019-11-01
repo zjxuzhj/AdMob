@@ -71,6 +71,7 @@
             android:name="com.qq.e.ads.LandscapeADActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
+        <activity android:name=".activity.TSplashAdActivity" />
     </application>
 
 </manifest>

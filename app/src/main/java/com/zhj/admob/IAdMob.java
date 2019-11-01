@@ -1,5 +1,6 @@
 package com.zhj.admob;
 
+import android.content.Intent;
 import android.view.View;
 
 public interface IAdMob {
@@ -20,4 +21,9 @@ public interface IAdMob {
      * @return
      */
     public IInterstitialAd getIInterstitialAd();
+
+    /**
+     * 获得开屏广告
+     */
+    public void getSplashAD(Intent intent);
 }

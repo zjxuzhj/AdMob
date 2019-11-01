@@ -1,6 +1,7 @@
 package com.zhj.admob
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     val TBannerID = "6030189801366430"
     val TInterstitialID = "9030688981739111"
     val TNativeID = "9030688981739111"
+    val TSplashPosID = "1030527979166616"
     val GNativeID = "ca-app-pub-3940256099942544/2247696110"
     val GAPPID = "ca-app-pub-3940256099942544~3347511713"
     val GBannerID = "ca-app-pub-3940256099942544/6300978111"
@@ -66,8 +68,15 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-
-        refreshAd()
+        val intent = Intent()
+        intent.putExtra("have_ad", true)
+        intent.putExtra("isTest", false)
+        intent.putExtra("backgroundImageId", R.drawable.background_circle)
+        intent.putExtra("appName", getString(R.string.app_name))
+        intent.putExtra("appLogo", R.mipmap.ic_launcher)
+        intent.putExtra("watermark", R.mipmap.ic_launcher)
+        iAdMob.getSplashAD(intent)
+//        refreshAd()
 //        val adLoader = AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110")
 //                .forUnifiedNativeAd { unifiedNativeAd ->
 //                    val styles = NativeTemplateStyle.Builder().withMainBackgroundColor(ColorDrawable(getResources().getColor(R.color.gnt_white))).build()
@@ -79,11 +88,19 @@ class MainActivity : AppCompatActivity() {
 //                .build()
 //
 //        adLoader.loadAd(AdRequest.Builder().build())
+
 //        button.setOnClickListener {
 //            iInterstitialAd.show()
 //        }
-
+        jumpToAD()
 //        fl_ad_view.addView(iAdMob.bannerView)
+    }
+
+    //跳转到开屏广告页面
+    private fun jumpToAD() {
+
+        startActivity(intent)
+        finish()
     }
 
     //是否使用谷歌广告
@@ -97,9 +114,9 @@ class MainActivity : AppCompatActivity() {
      */
     private fun getAdMob(context: Activity): IAdMob {
         return if (isGoogleAd) {
-            GoogleAd(context, GAPPID, GBannerID, GInterstitialID)
+            GoogleAd(context, GAPPID, GBannerID, GInterstitialID, TSplashPosID)
         } else {
-            TencentAd(context, TAPPID, TBannerID, TInterstitialID)
+            TencentAd(context, TAPPID, TBannerID, TInterstitialID, TSplashPosID)
         }
     }
 

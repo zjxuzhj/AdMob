@@ -35,6 +35,9 @@ dependencies {
     implementation 'com.android.support:support-v4:28.0.0'
 
     implementation project(':NativeTemplatesAndroid-1.0.0')
+
+    //用于图片自动平移动画
+    implementation 'com.flaviofaria:kenburnsview:1.0.7'
 }
 repositories {
     mavenCentral()

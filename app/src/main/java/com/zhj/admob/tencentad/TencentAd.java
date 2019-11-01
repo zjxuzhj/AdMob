@@ -1,6 +1,7 @@
 package com.zhj.admob.tencentad;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
@@ -9,18 +10,21 @@ import com.qq.e.ads.banner2.UnifiedBannerView;
 import com.qq.e.comm.util.AdError;
 import com.zhj.admob.IAdMob;
 import com.zhj.admob.IInterstitialAd;
+import com.zhj.admob.R;
+import com.zhj.admob.activity.TSplashAdActivity;
 
 public class TencentAd implements IAdMob {
     private UnifiedBannerView bv;
     private String posId;
     private Activity context;
-    private String appId, bannerId, interstitialId;
+    private String appId, bannerId, interstitialId,splashPosId;
 
-    public TencentAd(Activity context, String appId, String bannerId, String interstitialId) {
+    public TencentAd(Activity context, String appId, String bannerId, String interstitialId, String splashPosId) {
         this.context = context;
         this.appId = appId;
         this.bannerId = bannerId;
         this.interstitialId = interstitialId;
+        this.splashPosId = splashPosId;
     }
 
     @Override
@@ -88,6 +92,16 @@ public class TencentAd implements IAdMob {
     @Override
     public IInterstitialAd getIInterstitialAd() {
         return new InterstitialAd(context, appId, interstitialId);
+    }
+
+    @Override
+    public void getSplashAD(Intent intent) {
+        intent.setClass(context,TSplashAdActivity.class);
+        intent.putExtra("appID", appId);
+        intent.putExtra("SplashPosID", splashPosId);
+        intent.putExtra("jumpClassName", "com.zhj.admob.activity.TSplashAdActivity");
+        context.startActivity(intent);
+        context.finish();
     }
 
 }
