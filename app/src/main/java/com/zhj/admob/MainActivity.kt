@@ -2,10 +2,12 @@ package com.zhj.admob
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.ads.nativetemplates.NativeTemplateStyle
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.formats.MediaView
 import com.google.android.gms.ads.formats.NativeAdOptions
@@ -78,13 +80,13 @@ class MainActivity : AppCompatActivity() {
         iAdMob.getSplashAD(intent)
 //        refreshAd()
 //        val adLoader = AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110")
-//                .forUnifiedNativeAd { unifiedNativeAd ->
+//                .forUnifiedNativeAd(fun(unifiedNativeAd: UnifiedNativeAd) {
 //                    val styles = NativeTemplateStyle.Builder().withMainBackgroundColor(ColorDrawable(getResources().getColor(R.color.gnt_white))).build()
 //
 //                    val template = my_template
 //                    template.setStyles(styles)
 //                    template.setNativeAd(unifiedNativeAd)
-//                }
+//                })
 //                .build()
 //
 //        adLoader.loadAd(AdRequest.Builder().build())
@@ -92,7 +94,7 @@ class MainActivity : AppCompatActivity() {
 //        button.setOnClickListener {
 //            iInterstitialAd.show()
 //        }
-        jumpToAD()
+//        jumpToAD()
 //        fl_ad_view.addView(iAdMob.bannerView)
     }
 
@@ -104,7 +106,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //是否使用谷歌广告
-    private var isGoogleAd = false
+    private var isGoogleAd = true
 
     /**
      * 获取广告服务

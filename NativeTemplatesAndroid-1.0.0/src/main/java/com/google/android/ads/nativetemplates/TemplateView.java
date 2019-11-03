@@ -47,6 +47,7 @@ public class TemplateView extends FrameLayout {
 
   public TemplateView(Context context) {
     super(context);
+    initView(context);
   }
 
   public TemplateView(Context context, @Nullable AttributeSet attrs) {
@@ -287,6 +288,37 @@ public class TemplateView extends FrameLayout {
     LayoutInflater inflater =
         (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     inflater.inflate(templateType, this);
+  }
+
+  private void initView(Context context) {
+
+//    TypedArray attributes =
+//            context.getTheme().obtainStyledAttributes(attributeSet, R.styleable.TemplateView, 0, 0);
+//
+//    try {
+//      templateType =
+//              attributes.getResourceId(
+//                      R.styleable.TemplateView_gnt_template_type, R.layout.gnt_medium_template_view);
+//    } finally {
+//      attributes.recycle();
+//    }
+    LayoutInflater inflater =
+            (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    inflater.inflate(R.layout.gnt_medium_template_view, this);
+    nativeAdView = (UnifiedNativeAdView) findViewById(R.id.native_ad_view);
+    primaryView = (TextView) findViewById(R.id.primary);
+    secondaryView = (TextView) findViewById(R.id.secondary);
+    secondaryParentView = (LinearLayout) findViewById(R.id.body);
+    ratingBar = (RatingBar) findViewById(R.id.rating_bar);
+    ratingBar.setEnabled(false);
+    tertiaryView = (TextView) findViewById(R.id.tertiary);
+    tertiaryParentView = (LinearLayout) findViewById(R.id.third_line);
+    callToActionView = (Button) findViewById(R.id.cta);
+    iconView = (ImageView) findViewById(R.id.icon);
+    mediaView = (MediaView) findViewById(R.id.media_view);
+    primaryParentView = (LinearLayout) findViewById(R.id.headline);
+    callToActionParentView = (LinearLayout) findViewById(R.id.cta_parent);
+    background = (LinearLayout) findViewById(R.id.background);
   }
 
   @Override

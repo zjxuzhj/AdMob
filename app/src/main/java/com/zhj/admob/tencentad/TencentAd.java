@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 import com.qq.e.ads.banner2.UnifiedBannerADListener;
 import com.qq.e.ads.banner2.UnifiedBannerView;
 import com.qq.e.comm.util.AdError;
@@ -102,6 +103,11 @@ public class TencentAd implements IAdMob {
         intent.putExtra("jumpClassName", "com.zhj.admob.activity.TSplashAdActivity");
         context.startActivity(intent);
         context.finish();
+    }
+
+    @Override
+    public UnifiedNativeAdView getNativeAd() {
+        return null;
     }
 
 }
