@@ -113,16 +113,7 @@ public class SplashAdActivity extends AppCompatActivity implements SplashADListe
                     .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
                         @Override
                         public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
-//                        // Show the ad.
-//                        UnifiedNativeAdView adView = (UnifiedNativeAdView) getLayoutInflater()
-//                                .inflate(R.layout.gnt_small_template_view, null);
-//                        // This method sets the text, images and the native ad, etc into the ad
-//                        // view.
-//                        populateUnifiedNativeAdView(unifiedNativeAd, adView);
                             TemplateView templateView = new TemplateView(activity, R.layout.gnt_medium_template_view);
-                            NativeTemplateStyle styles = new
-                                    NativeTemplateStyle.Builder().withMainBackgroundColor(new ColorDrawable(getResources().getColor(R.color.gnt_white))).build();
-//                        templateView.setStyles(styles);
                             templateView.setNativeAd(unifiedNativeAd);
                             adContainer.addView(templateView);
                             downTime(4000);
@@ -144,6 +135,7 @@ public class SplashAdActivity extends AppCompatActivity implements SplashADListe
             skipContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    timerCancel();
                     jumpToNextAct(jumpClassName);
                 }
             });
