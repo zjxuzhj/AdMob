@@ -1,2 +1,2 @@
-include ':app', ':googlead', ':tencentad', ':NativeTemplatesAndroid-1.0.0'
+include ':app', ':NativeTemplatesAndroid-1.0.0'
 rootProject.name='AdMob'
