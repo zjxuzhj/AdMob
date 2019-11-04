@@ -3,26 +3,45 @@ package com.zhj.admob.googlead
 import android.app.Activity
 import android.content.Intent
 import android.view.View
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.formats.UnifiedNativeAdView
+import com.google.android.ads.nativetemplates.TemplateView
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.formats.NativeAdOptions
 import com.zhj.admob.IAdMob
 import com.zhj.admob.IInterstitialAd
-import com.zhj.admob.activity.TSplashAdActivity
+import com.zhj.admob.INativeAd.SMALL_NATIVE_AD
+import com.zhj.admob.R
+import com.zhj.admob.activity.SplashAdActivity
 
 class GoogleAd(private val context: Activity, appId: String, private val bannerId: String,
-               private val interstitialId: String, private val splashPosId: String) : IAdMob {
-    override fun getNativeAd(): UnifiedNativeAdView {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+               private val interstitialId: String, private val splashPosId: String, private val nativeID: String) : IAdMob {
+    override fun getNativeAd(type: Int): View {
+        val templateView: TemplateView = if (SMALL_NATIVE_AD == type) {
+            TemplateView(context, R.layout.gnt_small_template_view)
+        } else {
+            TemplateView(context, R.layout.gnt_medium_template_view)
+        }
+        val adLoader = AdLoader.Builder(context, splashPosId)
+                .forUnifiedNativeAd { unifiedNativeAd ->
+                    templateView.setNativeAd(unifiedNativeAd)
+                }
+                .withAdListener(object : AdListener() {
+                    override fun onAdFailedToLoad(errorCode: Int) {
+                        // Handle the failure by logging, altering the UI, and so on.
+                    }
+                })
+                .withNativeAdOptions(NativeAdOptions.Builder()
+                        // Methods in the NativeAdOptions.Builder class can be
+                        // used here to specify individual options settings.
+                        .build())
+                .build()
+        adLoader.loadAd(AdRequest.Builder().build())
+        return templateView
     }
 
     override fun getSplashAD(intent: Intent) {
-        intent.setClass(context, TSplashAdActivity::class.java)
+        intent.setClass(context, SplashAdActivity::class.java)
         intent.putExtra("appID", "saaaa")
         intent.putExtra("SplashPosID", splashPosId)
-        intent.putExtra("jumpClassName", "com.zhj.admob.activity.TSplashAdActivity")
         context.startActivity(intent)
         context.finish()
     }

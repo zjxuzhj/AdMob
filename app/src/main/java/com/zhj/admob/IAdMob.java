@@ -33,5 +33,5 @@ public interface IAdMob {
      * 获得原生广告
      * @return
      */
-    public UnifiedNativeAdView getNativeAd();
+    public View getNativeAd(int type);
 }

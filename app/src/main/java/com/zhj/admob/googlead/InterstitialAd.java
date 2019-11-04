@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.zhj.admob.IADListener;
 import com.zhj.admob.IInterstitialAd;
 
 /**
@@ -32,7 +33,7 @@ public class InterstitialAd implements IInterstitialAd {
     }
 
     @Override
-    public void addInterstitialADListener(Activity context, final InterstitialADListener unifiedInterstitialADListener) {
+    public void addInterstitialADListener(Activity context, final IADListener unifiedInterstitialADListener) {
         interstitialAD = new com.google.android.gms.ads.InterstitialAd(context);
         interstitialAD.setAdUnitId(interstitialId);
         interstitialAD.loadAd(new AdRequest.Builder().build());

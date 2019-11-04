@@ -6,6 +6,7 @@ import android.util.Log;
 import com.qq.e.ads.interstitial2.UnifiedInterstitialAD;
 import com.qq.e.ads.interstitial2.UnifiedInterstitialADListener;
 import com.qq.e.comm.util.AdError;
+import com.zhj.admob.IADListener;
 import com.zhj.admob.IInterstitialAd;
 
 /**
@@ -31,7 +32,7 @@ public class InterstitialAd implements IInterstitialAd {
     }
 
     @Override
-    public void addInterstitialADListener(Activity context, final InterstitialADListener unifiedInterstitialADListener) {
+    public void addInterstitialADListener(Activity context, final IADListener unifiedInterstitialADListener) {
         if (interstitialAD == null) {
             interstitialAD = new UnifiedInterstitialAD(context, appId, interstitialId, new UnifiedInterstitialADListener() {
                 @Override

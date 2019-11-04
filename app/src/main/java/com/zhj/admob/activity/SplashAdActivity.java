@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -21,26 +22,24 @@ import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.formats.NativeAdOptions;
-import com.google.android.gms.ads.formats.UnifiedNativeAd;
-import com.google.android.gms.ads.formats.UnifiedNativeAdView;
-import com.qq.e.ads.splash.SplashADListener;
-import com.qq.e.comm.util.AdError;
-import com.zhj.admob.R;
-import com.google.android.gms.ads.*;
+import com.google.android.gms.ads.VideoController;
 import com.google.android.gms.ads.formats.MediaView;
 import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.formats.UnifiedNativeAdView;
+import com.qq.e.ads.splash.SplashAD;
+import com.qq.e.ads.splash.SplashADListener;
+import com.qq.e.comm.util.AdError;
+import com.zhj.admob.R;
 
-import java.util.Locale;
-
-public class TSplashAdActivity extends AppCompatActivity implements SplashADListener {
+public class SplashAdActivity extends AppCompatActivity implements SplashADListener {
     private TextView skipView;
     private ImageView splashHolder;
     private static final String SKIP_TEXT = "点击跳过 %d";
     public boolean canJump = false;
     private String jumpClassName;
+    private boolean isGoogle;
+    private String splashPosID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +48,10 @@ public class TSplashAdActivity extends AppCompatActivity implements SplashADList
 
         boolean have_ad = getIntent().getBooleanExtra("have_ad", false);
         boolean isTest = getIntent().getBooleanExtra("isTest", false);
+        isGoogle = getIntent().getBooleanExtra("isGoogle", false);
         int backgroundImageId = getIntent().getIntExtra("backgroundImageId", 0);
         String appID = getIntent().getStringExtra("appID");
-        String SplashPosID = getIntent().getStringExtra("SplashPosID");
+        splashPosID = getIntent().getStringExtra("SplashPosID");
         jumpClassName = getIntent().getStringExtra("jumpClassName");
         String appName = getIntent().getStringExtra("appName");
         int appLogo = getIntent().getIntExtra("appLogo", 0);
@@ -64,10 +64,14 @@ public class TSplashAdActivity extends AppCompatActivity implements SplashADList
         iv_water_mark.setImageDrawable(getDrawable(watermark));
         skipView = findViewById(R.id.anzhi_skip_view);
         splashHolder = findViewById(R.id.anzhi_splash_holder);
-        splashHolder.setImageDrawable(getResources().getDrawable(backgroundImageId));
+        if(!isGoogle) {
+            splashHolder.setImageDrawable(getResources().getDrawable(backgroundImageId));
+        }else{
+
+        }
         if (have_ad && !isTest) {
-            if (!TextUtils.isEmpty(appID) && !TextUtils.isEmpty(SplashPosID)) {
-                fetchSplashAD(this, container, skipView, appID, SplashPosID, this, 4000);
+            if (!TextUtils.isEmpty(appID) && !TextUtils.isEmpty(splashPosID)) {
+                fetchSplashAD(this, container, skipView, appID, splashPosID, this, 4000);
             } else {
                 jumpToNextAct(jumpClassName);
             }
@@ -104,45 +108,85 @@ public class TSplashAdActivity extends AppCompatActivity implements SplashADList
      */
     private void fetchSplashAD(final Activity activity, final ViewGroup adContainer, View skipContainer,
                                String appId, String posId, SplashADListener adListener, int fetchDelay) {
-
-//        SplashAD splashAD = new SplashAD(activity, skipContainer, appId, posId, adListener, fetchDelay);
-//        splashAD.fetchAndShowIn(adContainer);
-
-        AdLoader adLoader = new AdLoader.Builder(activity, "ca-app-pub-3940256099942544/2247696110")
-                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
-                    @Override
-                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+        if (isGoogle) {
+            AdLoader adLoader = new AdLoader.Builder(activity, posId)
+                    .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+                        @Override
+                        public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
 //                        // Show the ad.
 //                        UnifiedNativeAdView adView = (UnifiedNativeAdView) getLayoutInflater()
 //                                .inflate(R.layout.gnt_small_template_view, null);
 //                        // This method sets the text, images and the native ad, etc into the ad
 //                        // view.
 //                        populateUnifiedNativeAdView(unifiedNativeAd, adView);
-                        TemplateView templateView = new TemplateView(activity);
-                        NativeTemplateStyle styles = new
-                                NativeTemplateStyle.Builder().withMainBackgroundColor(new ColorDrawable(getResources().getColor(R.color.gnt_white))).build();
+                            TemplateView templateView = new TemplateView(activity, R.layout.gnt_medium_template_view);
+                            NativeTemplateStyle styles = new
+                                    NativeTemplateStyle.Builder().withMainBackgroundColor(new ColorDrawable(getResources().getColor(R.color.gnt_white))).build();
 //                        templateView.setStyles(styles);
-                        templateView.setNativeAd(unifiedNativeAd);
-                        adContainer.addView(templateView);
-                    }
-                })
-                .withAdListener(new AdListener() {
-                    @Override
-                    public void onAdFailedToLoad(int errorCode) {
-                        // Handle the failure by logging, altering the UI, and so on.
-                    }
-                })
-                .withNativeAdOptions(new NativeAdOptions.Builder()
-                        // Methods in the NativeAdOptions.Builder class can be
-                        // used here to specify individual options settings.
-                        .build())
-                .build();
+                            templateView.setNativeAd(unifiedNativeAd);
+                            adContainer.addView(templateView);
+                            downTime(4000);
+                        }
+                    })
+                    .withAdListener(new AdListener() {
+                        @Override
+                        public void onAdFailedToLoad(int errorCode) {
+                            // Handle the failure by logging, altering the UI, and so on.
+                        }
+                    })
+                    .withNativeAdOptions(new NativeAdOptions.Builder()
+                            // Methods in the NativeAdOptions.Builder class can be
+                            // used here to specify individual options settings.
+                            .build())
+                    .build();
 
-        adLoader.loadAd(new AdRequest.Builder().build());
+            adLoader.loadAd(new AdRequest.Builder().build());
+            skipContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    jumpToNextAct(jumpClassName);
+                }
+            });
+        } else {
+            SplashAD splashAD = new SplashAD(activity, skipContainer, appId, posId, adListener, fetchDelay);
+            splashAD.fetchAndShowIn(adContainer);
 
-
+        }
     }
 
+    private CountDownTimer timer;
+
+    //倒计时3秒，结束跳转
+    public void downTime(long down) {
+        timer = new CountDownTimer(down, 1000L) {
+            @Override
+            public void onTick(long l) {
+                long second = Math.round(l / 1000d);
+                now_timer = l;
+                is_loading = true;
+                skipView.setText("跳过 " + second);
+            }
+
+            @Override
+            public void onFinish() {
+                is_loading = false;
+                now_timer = 0;
+                jumpToNextAct(jumpClassName);
+            }
+        }.start();
+    }
+
+    public long now_timer = 0;
+    public boolean is_loading = false;
+
+    public void timerCancel() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+            now_timer = 0;
+            is_loading = false;
+        }
+    }
 
     /**
      * Populates a {@link UnifiedNativeAdView} object with data from a given
