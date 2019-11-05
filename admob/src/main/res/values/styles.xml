@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -20,7 +20,7 @@
         <item name="android:height">15dp</item>
     </style>
 
-    <style name="AppThemeAD" parent="@style/Theme.AppCompat.Light">
+    <style name="AdMobAppTheme" parent="@style/Theme.AppCompat.Light">
         <!-- AppCompat Dialog Attributes -->
         <item name="android:textColorPrimary">@color/colorAccent</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
@@ -33,6 +33,10 @@
         <item name="colorAccent">@color/cyan</item>
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
     </style>
 
     <color name="cyan">#00BCD4</color>

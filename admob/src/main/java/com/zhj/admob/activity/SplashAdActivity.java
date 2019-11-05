@@ -2,7 +2,6 @@ package com.zhj.admob.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
@@ -44,7 +42,7 @@ public class SplashAdActivity extends AppCompatActivity implements SplashADListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_ad);
+        setContentView(R.layout.activity_admob_splash_ad);
 
         boolean have_ad = getIntent().getBooleanExtra("have_ad", false);
         boolean isTest = getIntent().getBooleanExtra("isTest", false);

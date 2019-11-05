@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         val iAdMob = getAdMob(this)
         iAdMob.initAdSdk()
-        fl_ad_view.addView(iAdMob.getNativeAd(MEDIUM_NATIVE_AD))
+//        fl_ad_view.addView(iAdMob.getNativeAd(MEDIUM_NATIVE_AD))
 //        val iInterstitialAd = iAdMob.iInterstitialAd
 //        iInterstitialAd.addInterstitialADListener(this, object : IADListener {
 //            override fun onNoAD(var1: AdError?) {
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 //            }
 //
 //        })
-//        jumpToAD(iAdMob)
+        jumpToAD(iAdMob)
 
 //        refreshAd()
 //        val adLoader = AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110")
