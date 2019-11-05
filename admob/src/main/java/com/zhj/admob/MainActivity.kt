@@ -20,9 +20,9 @@ class MainActivity : AppCompatActivity() {
     val TSplashPosID = "1030527979166616"
     val GSplashPosID = "ca-app-pub-3940256099942544/2247696110"
     val GNativeID = "ca-app-pub-3940256099942544/2247696110"
-    val GAPPID = "ca-app-pub-3940256099942544~3347511713"
-    val GBannerID = "ca-app-pub-3940256099942544/6300978111"
-    val GInterstitialID = "ca-app-pub-3940256099942544/1033173712"
+    val GAPPID = "ca-app-pub-8931961554971597~7543877514"
+    val GBannerID = "ca-app-pub-8931961554971597/2063501880"
+    val GInterstitialID = "ca-app-pub-8931961554971597/8854758051"
     private var nativeAd: UnifiedNativeAd? = null
     private val ADMOB_AD_UNIT_ID = "ca-app-pub-3940256099942544/2247696110"
 
