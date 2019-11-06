@@ -72,7 +72,7 @@
             android:screenOrientation="landscape" />
         <activity android:name=".activity.SplashAdActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AdMobAppTheme"/>
+            android:theme="@style/AdMobAppTranslucentTheme"/>
     </application>
 
 </manifest>
