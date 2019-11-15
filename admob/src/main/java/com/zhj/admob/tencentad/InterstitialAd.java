@@ -32,43 +32,53 @@ public class InterstitialAd implements IInterstitialAd {
     }
 
     @Override
+    public void destroy() {
+        interstitialAD.destroy();
+    }
+
+    @Override
     public void addInterstitialADListener(Activity context, final IADListener unifiedInterstitialADListener) {
         if (interstitialAD == null) {
             interstitialAD = new UnifiedInterstitialAD(context, appId, interstitialId, new UnifiedInterstitialADListener() {
                 @Override
                 public void onADReceive() {
-                    Log.i("aaaaaa", "onADReceive");
+                    Log.i("admob", "onADReceive");
                     unifiedInterstitialADListener.onAdLoaded();
                 }
 
                 @Override
                 public void onNoAD(AdError adError) {
-                    Log.i("aaaaaa", "adError");
+                    Log.i("admob", "adError");
+                    unifiedInterstitialADListener.onAdLoaded();
                 }
 
                 @Override
                 public void onADOpened() {
-                    Log.i("aaaaaa", "onADOpened");
+                    Log.i("admob", "onADOpened");
+                    unifiedInterstitialADListener.onAdOpened();
                 }
 
                 @Override
                 public void onADExposure() {
-                    Log.i("aaaaaa", "onADExposure");
+                    Log.i("admob", "onADExposure");
+                    unifiedInterstitialADListener.onADExposure();
                 }
 
                 @Override
                 public void onADClicked() {
-                    Log.i("aaaaaa", "onADClicked");
+                    Log.i("admob", "onADClicked");
+                    unifiedInterstitialADListener.onAdClicked();
                 }
 
                 @Override
                 public void onADLeftApplication() {
-                    Log.i("aaaaaa", "onADLeftApplication");
+                    Log.i("admob", "onADLeftApplication");
+                    unifiedInterstitialADListener.onAdLeftApplication();
                 }
 
                 @Override
                 public void onADClosed() {
-                    Log.i("aaaaaa", "onADClosed");
+                    Log.i("admob", "onADClosed");
                     unifiedInterstitialADListener.onAdClosed();
                 }
             });

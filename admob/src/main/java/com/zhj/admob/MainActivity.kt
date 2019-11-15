@@ -3,8 +3,10 @@ package com.zhj.admob
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.formats.UnifiedNativeAd
+import com.qq.e.comm.util.AdError
 import com.zhj.admob.INativeAd.MEDIUM_NATIVE_AD
 import com.zhj.admob.INativeAd.SMALL_NATIVE_AD
 import com.zhj.admob.googlead.GoogleAd
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         val iAdMob = getAdMob(this)
         iAdMob.initAdSdk()
 //        fl_ad_view.addView(iAdMob.getNativeAd(MEDIUM_NATIVE_AD))
-//        val iInterstitialAd = iAdMob.iInterstitialAd
+        val iInterstitialAd = iAdMob.iInterstitialAd
 //        iInterstitialAd.addInterstitialADListener(this, object : IADListener {
 //            override fun onNoAD(var1: AdError?) {
 //                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

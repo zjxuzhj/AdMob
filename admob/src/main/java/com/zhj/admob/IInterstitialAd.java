@@ -17,6 +17,11 @@ public interface IInterstitialAd {
     void showAsPopupWindow();
 
     /**
+     * 广点通的插屏广告需要销毁
+     */
+    void destroy();
+
+    /**
      * 添加广告监听
      */
     public void addInterstitialADListener(Activity context, IADListener unifiedInterstitialADListener);

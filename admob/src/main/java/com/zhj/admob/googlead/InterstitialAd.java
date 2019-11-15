@@ -33,6 +33,11 @@ public class InterstitialAd implements IInterstitialAd {
     }
 
     @Override
+    public void destroy() {
+        
+    }
+
+    @Override
     public void addInterstitialADListener(Activity context, final IADListener unifiedInterstitialADListener) {
         interstitialAD = new com.google.android.gms.ads.InterstitialAd(context);
         interstitialAD.setAdUnitId(interstitialId);
@@ -40,34 +45,44 @@ public class InterstitialAd implements IInterstitialAd {
         interstitialAD.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
+                Log.i("admob", "onADReceive");
                 unifiedInterstitialADListener.onAdLoaded();
                 // Code to be executed when an ad finishes loading.
             }
 
             @Override
             public void onAdFailedToLoad(int errorCode) {
+                Log.i("admob", "adError");
+                unifiedInterstitialADListener.onNoAD(errorCode + "");
                 // Code to be executed when an ad request fails.
             }
 
             @Override
             public void onAdOpened() {
+                Log.i("admob", "onADOpened");
+                unifiedInterstitialADListener.onAdOpened();
                 // Code to be executed when the ad is displayed.
             }
 
             @Override
             public void onAdClicked() {
+                Log.i("admob", "onADClicked");
+                unifiedInterstitialADListener.onAdClicked();
                 // Code to be executed when the user clicks on an ad.
             }
 
             @Override
             public void onAdLeftApplication() {
+                Log.i("admob", "onADLeftApplication");
+                unifiedInterstitialADListener.onAdLeftApplication();
                 // Code to be executed when the user has left the app.
             }
 
             @Override
             public void onAdClosed() {
-                // Code to be executed when the interstitial ad is closed.
+                Log.i("admob", "onADClosed");
                 unifiedInterstitialADListener.onAdClosed();
+                // Code to be executed when the interstitial ad is closed.
             }
         });
     }
