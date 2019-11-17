@@ -1,6 +1,7 @@
 package com.zhj.admob.tencentad;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import com.qq.e.ads.interstitial2.UnifiedInterstitialAD;
@@ -16,7 +17,7 @@ public class InterstitialAd implements IInterstitialAd {
     private UnifiedInterstitialAD interstitialAD;
     private String appId, interstitialId;
 
-    InterstitialAd(Activity context, String appId, String interstitialId) {
+    InterstitialAd(Context context, String appId, String interstitialId) {
         this.appId = appId;
         this.interstitialId = interstitialId;
     }

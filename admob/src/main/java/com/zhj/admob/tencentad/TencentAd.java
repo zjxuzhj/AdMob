@@ -1,6 +1,7 @@
 package com.zhj.admob.tencentad;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -23,11 +24,13 @@ import java.util.List;
 public class TencentAd implements IAdMob {
     private UnifiedBannerView bv;
     private String posId;
-    private Activity context;
+    private Activity activity;
+    private Context context;
     private String appId, bannerId, interstitialId, splashPosId, nativeId;
 
-    public TencentAd(Activity context, String appId, String bannerId, String interstitialId, String splashPosId, String nativeId) {
+    public TencentAd(Context context,Activity activity, String appId, String bannerId, String interstitialId, String splashPosId, String nativeId) {
         this.context = context;
+        this.activity = activity;
         this.appId = appId;
         this.bannerId = bannerId;
         this.interstitialId = interstitialId;
@@ -47,7 +50,7 @@ public class TencentAd implements IAdMob {
             return this.bv;
         }
         this.posId = posId;
-        this.bv = new UnifiedBannerView(context, appId, posId, new UnifiedBannerADListener() {
+        this.bv = new UnifiedBannerView(activity, appId, posId, new UnifiedBannerADListener() {
 
             @Override
             public void onNoAD(AdError error) {
@@ -107,8 +110,8 @@ public class TencentAd implements IAdMob {
         intent.setClass(context, SplashAdActivity.class);
         intent.putExtra("appID", appId);
         intent.putExtra("SplashPosID", splashPosId);
-        context.startActivity(intent);
-        context.finish();
+        activity.startActivity(intent);
+        activity.finish();
     }
 
     @Override

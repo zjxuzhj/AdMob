@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AdMob.iml" filepath="$PROJECT_DIR$/AdMob.iml" />
       <module fileurl="file://$PROJECT_DIR$/NativeTemplatesAndroid-1.0.0/AdMob-NativeTemplatesAndroid-1.0.0.iml" filepath="$PROJECT_DIR$/NativeTemplatesAndroid-1.0.0/AdMob-NativeTemplatesAndroid-1.0.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/admob/AdMob-admob.iml" filepath="$PROJECT_DIR$/admob/AdMob-admob.iml" />
       <module fileurl="file://$PROJECT_DIR$/NativeTemplatesAndroid-1.0.0/NativeTemplatesAndroid-1.0.0.iml" filepath="$PROJECT_DIR$/NativeTemplatesAndroid-1.0.0/NativeTemplatesAndroid-1.0.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/WorkSpace-AdMob.iml" filepath="$PROJECT_DIR$/WorkSpace-AdMob.iml" />
       <module fileurl="file://$PROJECT_DIR$/admob/admob.iml" filepath="$PROJECT_DIR$/admob/admob.iml" />

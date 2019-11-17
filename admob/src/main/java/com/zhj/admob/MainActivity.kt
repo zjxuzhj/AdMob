@@ -1,17 +1,13 @@
 package com.zhj.admob
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.formats.UnifiedNativeAd
-import com.qq.e.comm.util.AdError
-import com.zhj.admob.INativeAd.MEDIUM_NATIVE_AD
-import com.zhj.admob.INativeAd.SMALL_NATIVE_AD
 import com.zhj.admob.googlead.GoogleAd
 import com.zhj.admob.tencentad.TencentAd
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val iAdMob = getAdMob(this)
+        val iAdMob = getAdMob(this,this)
         iAdMob.initAdSdk()
 //        fl_ad_view.addView(iAdMob.getNativeAd(MEDIUM_NATIVE_AD))
         val iInterstitialAd = iAdMob.iInterstitialAd
@@ -111,11 +107,11 @@ class MainActivity : AppCompatActivity() {
      * @param context
      * @return
      */
-    private fun getAdMob(context: Activity): IAdMob {
+    private fun getAdMob(context: Context, activity: Activity): IAdMob {
         return if (isGoogleAd) {
-            GoogleAd(context, GAPPID, GBannerID, GInterstitialID, GSplashPosID, GNativeID)
+            GoogleAd(context, activity, GAPPID, GBannerID, GInterstitialID, GSplashPosID, GNativeID)
         } else {
-            TencentAd(context, TAPPID, TBannerID, TInterstitialID, TSplashPosID, TNativeID)
+            TencentAd(context, activity, TAPPID, TBannerID, TInterstitialID, TSplashPosID, TNativeID)
         }
     }
 }

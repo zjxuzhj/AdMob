@@ -1,6 +1,7 @@
 package com.zhj.admob.googlead;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.ads.AdListener;
@@ -15,7 +16,7 @@ public class InterstitialAd implements IInterstitialAd {
     private com.google.android.gms.ads.InterstitialAd interstitialAD;
     private String interstitialId;
 
-    InterstitialAd(Activity context, String interstitialId) {
+    InterstitialAd(Context context, String interstitialId) {
         this.interstitialId = interstitialId;
     }
 

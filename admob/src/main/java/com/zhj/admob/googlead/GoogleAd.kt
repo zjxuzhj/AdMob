@@ -1,6 +1,7 @@
 package com.zhj.admob.googlead
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.view.View
 import com.google.android.ads.nativetemplates.TemplateView
@@ -12,15 +13,15 @@ import com.zhj.admob.INativeAd.SMALL_NATIVE_AD
 import com.zhj.admob.R
 import com.zhj.admob.activity.SplashAdActivity
 
-class GoogleAd(private val context: Activity, appId: String, private val bannerId: String,
+class GoogleAd(private val context: Context, private val activity: Activity, appId: String, private val bannerId: String,
                private val interstitialId: String, private val splashPosId: String, private val nativeID: String) : IAdMob {
     override fun getNativeAd(type: Int): View {
         val templateView: TemplateView = if (SMALL_NATIVE_AD == type) {
-            TemplateView(context, R.layout.gnt_small_template_view)
+            TemplateView(activity, R.layout.gnt_small_template_view)
         } else {
-            TemplateView(context, R.layout.gnt_medium_template_view)
+            TemplateView(activity, R.layout.gnt_medium_template_view)
         }
-        val adLoader = AdLoader.Builder(context, splashPosId)
+        val adLoader = AdLoader.Builder(activity, splashPosId)
                 .forUnifiedNativeAd { unifiedNativeAd ->
                     templateView.setNativeAd(unifiedNativeAd)
                 }
@@ -39,11 +40,11 @@ class GoogleAd(private val context: Activity, appId: String, private val bannerI
     }
 
     override fun getSplashAD(intent: Intent) {
-        intent.setClass(context, SplashAdActivity::class.java)
+        intent.setClass(activity, SplashAdActivity::class.java)
         intent.putExtra("appID", "saaaa")
         intent.putExtra("SplashPosID", splashPosId)
-        context.startActivity(intent)
-        context.finish()
+        activity.startActivity(intent)
+        activity.finish()
     }
 
     override fun getIInterstitialAd(): IInterstitialAd {
