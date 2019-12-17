@@ -25,12 +25,10 @@ import com.google.android.gms.ads.formats.MediaView;
 import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.formats.UnifiedNativeAdView;
-import com.qq.e.ads.splash.SplashAD;
-import com.qq.e.ads.splash.SplashADListener;
 import com.qq.e.comm.util.AdError;
 import com.zhj.admob.R;
 
-public class SplashAdActivity extends AppCompatActivity implements SplashADListener {
+public class GSplashAdActivity extends AppCompatActivity {
     private TextView skipView;
     private ImageView splashHolder;
     private static final String SKIP_TEXT = "点击跳过 %d";
@@ -62,14 +60,14 @@ public class SplashAdActivity extends AppCompatActivity implements SplashADListe
         iv_water_mark.setImageDrawable(getDrawable(watermark));
         skipView = findViewById(R.id.anzhi_skip_view);
         splashHolder = findViewById(R.id.anzhi_splash_holder);
-        if(!isGoogle) {
+        if (!isGoogle) {
             splashHolder.setImageDrawable(getResources().getDrawable(backgroundImageId));
-        }else{
+        } else {
 
         }
         if (have_ad && !isTest) {
             if (!TextUtils.isEmpty(appID) && !TextUtils.isEmpty(splashPosID)) {
-                fetchSplashAD(this, container, skipView, appID, splashPosID, this, 4000);
+                fetchSplashAD(this, container, skipView, appID, splashPosID, 4000);
             } else {
                 jumpToNextAct(jumpClassName);
             }
@@ -101,47 +99,79 @@ public class SplashAdActivity extends AppCompatActivity implements SplashADListe
      * @param skipContainer 自定义的跳过按钮：传入该view给SDK后，SDK会自动给它绑定点击跳过事件。SkipView的样式可以由开发者自由定制，其尺寸限制请参考activity_splash.xml或者接入文档中的说明。
      * @param appId         应用ID
      * @param posId         广告位ID
-     * @param adListener    广告状态监听器
      * @param fetchDelay    拉取广告的超时时长：取值范围[3000, 5000]，设为0表示使用广点通SDK默认的超时时长。
      */
     private void fetchSplashAD(final Activity activity, final ViewGroup adContainer, View skipContainer,
-                               String appId, String posId, SplashADListener adListener, int fetchDelay) {
-        if (isGoogle) {
-            AdLoader adLoader = new AdLoader.Builder(activity, posId)
-                    .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
-                        @Override
-                        public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
-                            TemplateView templateView = new TemplateView(activity, R.layout.gnt_medium_template_view);
-                            templateView.setNativeAd(unifiedNativeAd);
-                            adContainer.addView(templateView);
-                            downTime(4000);
-                        }
-                    })
-                    .withAdListener(new AdListener() {
-                        @Override
-                        public void onAdFailedToLoad(int errorCode) {
-                            // Handle the failure by logging, altering the UI, and so on.
-                        }
-                    })
-                    .withNativeAdOptions(new NativeAdOptions.Builder()
-                            // Methods in the NativeAdOptions.Builder class can be
-                            // used here to specify individual options settings.
-                            .build())
-                    .build();
+                               String appId, String posId, int fetchDelay) {
+        AdLoader adLoader = new AdLoader.Builder(activity, posId)
+                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+                    @Override
+                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                        TemplateView templateView = new TemplateView(activity, R.layout.gnt_medium_template_view);
+                        templateView.setNativeAd(unifiedNativeAd);
+                        adContainer.addView(templateView);
+                        downTime(4000);
+                    }
+                })
+                .withAdListener(new AdListener() {
+                    @Override
+                    public void onAdFailedToLoad(int errorCode) {
+                        // Handle the failure by logging, altering the UI, and so on.
+                        Log.i(
+                                "AD_DEMO",
+                                String.format("LoadSplashADFail, eCode=%d, errorMsg=%s", errorCode,
+                                        errorCode));
+                        /** 如果加载广告失败，则直接跳转 */
+                        jumpToNextAct(jumpClassName);
+                    }
 
-            adLoader.loadAd(new AdRequest.Builder().build());
-            skipContainer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    timerCancel();
-                    jumpToNextAct(jumpClassName);
-                }
-            });
-        } else {
-            SplashAD splashAD = new SplashAD(activity, skipContainer, appId, posId, adListener, fetchDelay);
-            splashAD.fetchAndShowIn(adContainer);
+                    @Override
+                    public void onAdClicked() {
+                        Log.i("AD_DEMO", "SplashADClicked");
+                    }
 
-        }
+                    @Override
+                    public void onAdClosed() {
+                        Log.i("AD_DEMO", "SplashADDismissed");
+                        next();
+                    }
+
+                    @Override
+                    public void onAdLoaded() {
+                        Log.i("AD_DEMO", "SplashADPresent");
+                        splashHolder.setVisibility(View.INVISIBLE); // 广告展示后一定要把预设的开屏图片隐藏起来
+                    }
+
+                    @Override
+                    public void onAdOpened() {
+                        Log.i("AD_DEMO", "SplashADPresent");
+                        splashHolder.setVisibility(View.INVISIBLE); // 广告展示后一定要把预设的开屏图片隐藏起来
+                    }
+
+                    @Override
+                    public void onAdImpression() {
+
+                    }
+
+                    @Override
+                    public void onAdLeftApplication() {
+
+                    }
+                })
+                .withNativeAdOptions(new NativeAdOptions.Builder()
+                        // Methods in the NativeAdOptions.Builder class can be
+                        // used here to specify individual options settings.
+                        .build())
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
+        skipContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timerCancel();
+                jumpToNextAct(jumpClassName);
+            }
+        });
     }
 
     private CountDownTimer timer;
@@ -287,50 +317,6 @@ public class SplashAdActivity extends AppCompatActivity implements SplashADListe
 //            videoStatus.setText("Video status: Ad does not contain a video asset.");
 //            refresh.setEnabled(true);
 //        }
-    }
-
-    @Override
-    public void onADDismissed() {
-        Log.i("AD_DEMO", "SplashADDismissed");
-        next();
-    }
-
-    @Override
-    public void onNoAD(AdError error) {
-        Log.i(
-                "AD_DEMO",
-                String.format("LoadSplashADFail, eCode=%d, errorMsg=%s", error.getErrorCode(),
-                        error.getErrorMsg()));
-        /** 如果加载广告失败，则直接跳转 */
-        jumpToNextAct(jumpClassName);
-    }
-
-    @Override
-    public void onADPresent() {
-        Log.i("AD_DEMO", "SplashADPresent");
-        splashHolder.setVisibility(View.INVISIBLE); // 广告展示后一定要把预设的开屏图片隐藏起来
-    }
-
-    @Override
-    public void onADClicked() {
-        Log.i("AD_DEMO", "SplashADClicked");
-    }
-
-    /**
-     * 倒计时回调，返回广告还将被展示的剩余时间。
-     * 通过这个接口，开发者可以自行决定是否显示倒计时提示，或者还剩几秒的时候显示倒计时
-     *
-     * @param millisUntilFinished 剩余毫秒数
-     */
-    @Override
-    public void onADTick(long millisUntilFinished) {
-        Log.i("AD_DEMO", "SplashADTick " + millisUntilFinished + "ms");
-        skipView.setText(String.format(SKIP_TEXT, Math.round(millisUntilFinished / 1000f)));
-    }
-
-    @Override
-    public void onADExposure() {
-
     }
 
     /**

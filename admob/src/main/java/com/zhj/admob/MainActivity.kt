@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("appLogo", R.mipmap.ic_launcher)
         intent.putExtra("watermark", R.mipmap.ic_launcher)
         intent.putExtra("isGoogle", isGoogleAd)
-        intent.putExtra("jumpClassName", "com.zhj.admob.activity.SplashAdActivity")
+        intent.putExtra("jumpClassName", "com.zhj.admob.activity.GSplashAdActivity")
         iAdMob.getSplashAD(intent)
     }
 

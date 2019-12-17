@@ -11,7 +11,7 @@ import com.zhj.admob.IAdMob
 import com.zhj.admob.IInterstitialAd
 import com.zhj.admob.INativeAd.SMALL_NATIVE_AD
 import com.zhj.admob.R
-import com.zhj.admob.activity.SplashAdActivity
+import com.zhj.admob.activity.GSplashAdActivity
 
 class GoogleAd(private val context: Context, private val activity: Activity, appId: String, private val bannerId: String,
                private val interstitialId: String, private val splashPosId: String, private val nativeID: String) : IAdMob {
@@ -40,7 +40,7 @@ class GoogleAd(private val context: Context, private val activity: Activity, app
     }
 
     override fun getSplashAD(intent: Intent) {
-        intent.setClass(activity, SplashAdActivity::class.java)
+        intent.setClass(activity, GSplashAdActivity::class.java)
         intent.putExtra("appID", "saaaa")
         intent.putExtra("SplashPosID", splashPosId)
         activity.startActivity(intent)

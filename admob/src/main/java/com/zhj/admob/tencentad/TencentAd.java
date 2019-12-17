@@ -16,7 +16,7 @@ import com.qq.e.ads.nativ.NativeExpressADView;
 import com.qq.e.comm.util.AdError;
 import com.zhj.admob.IAdMob;
 import com.zhj.admob.IInterstitialAd;
-import com.zhj.admob.activity.SplashAdActivity;
+import com.zhj.admob.activity.TXSplashAdActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class TencentAd implements IAdMob {
     private Context context;
     private String appId, bannerId, interstitialId, splashPosId, nativeId;
 
-    public TencentAd(Context context,Activity activity, String appId, String bannerId, String interstitialId, String splashPosId, String nativeId) {
+    public TencentAd(Context context, Activity activity, String appId, String bannerId, String interstitialId, String splashPosId, String nativeId) {
         this.context = context;
         this.activity = activity;
         this.appId = appId;
@@ -107,7 +107,7 @@ public class TencentAd implements IAdMob {
 
     @Override
     public void getSplashAD(Intent intent) {
-        intent.setClass(context, SplashAdActivity.class);
+        intent.setClass(context, TXSplashAdActivity.class);
         intent.putExtra("appID", appId);
         intent.putExtra("SplashPosID", splashPosId);
         activity.startActivity(intent);
