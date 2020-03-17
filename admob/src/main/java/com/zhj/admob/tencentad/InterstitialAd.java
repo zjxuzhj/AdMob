@@ -7,11 +7,11 @@ import android.util.Log;
 import com.qq.e.ads.interstitial2.UnifiedInterstitialAD;
 import com.qq.e.ads.interstitial2.UnifiedInterstitialADListener;
 import com.qq.e.comm.util.AdError;
-import com.zhj.admob.IADListener;
-import com.zhj.admob.IInterstitialAd;
+import com.zhj.admob.interfaceAd.IADListener;
+import com.zhj.admob.interfaceAd.IInterstitialAd;
 
 /**
- * Created by HongJay on 2019-10-30.
+ * 腾讯插屏广告类
  */
 public class InterstitialAd implements IInterstitialAd {
     private UnifiedInterstitialAD interstitialAD;
@@ -45,6 +45,11 @@ public class InterstitialAd implements IInterstitialAd {
                 public void onADReceive() {
                     Log.i("admob", "onADReceive");
                     unifiedInterstitialADListener.onAdLoaded();
+                }
+
+                @Override
+                public void onVideoCached() {
+
                 }
 
                 @Override

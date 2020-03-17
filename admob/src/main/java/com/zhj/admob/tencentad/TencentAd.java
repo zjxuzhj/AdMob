@@ -15,12 +15,15 @@ import com.qq.e.ads.nativ.NativeExpressAD;
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.qq.e.comm.util.AdError;
 import com.zhj.admob.IAdMob;
-import com.zhj.admob.IInterstitialAd;
+import com.zhj.admob.interfaceAd.IInterstitialAd;
 import com.zhj.admob.activity.TXSplashAdActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 腾讯广告代理类
+ */
 public class TencentAd implements IAdMob {
     private UnifiedBannerView bv;
     private String posId;

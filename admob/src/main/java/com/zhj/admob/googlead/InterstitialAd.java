@@ -6,11 +6,11 @@ import android.util.Log;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.zhj.admob.IADListener;
-import com.zhj.admob.IInterstitialAd;
+import com.zhj.admob.interfaceAd.IADListener;
+import com.zhj.admob.interfaceAd.IInterstitialAd;
 
 /**
- * Created by HongJay on 2019-10-30.
+ * 插屏广告实现类
  */
 public class InterstitialAd implements IInterstitialAd {
     private com.google.android.gms.ads.InterstitialAd interstitialAD;

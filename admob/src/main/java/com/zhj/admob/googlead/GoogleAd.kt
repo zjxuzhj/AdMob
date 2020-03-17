@@ -8,11 +8,14 @@ import com.google.android.ads.nativetemplates.TemplateView
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.formats.NativeAdOptions
 import com.zhj.admob.IAdMob
-import com.zhj.admob.IInterstitialAd
-import com.zhj.admob.INativeAd.SMALL_NATIVE_AD
+import com.zhj.admob.interfaceAd.IInterstitialAd
+import com.zhj.admob.interfaceAd.INativeAd.SMALL_NATIVE_AD
 import com.zhj.admob.R
 import com.zhj.admob.activity.GSplashAdActivity
 
+/**
+ * 谷歌广告代理类
+ */
 class GoogleAd(private val context: Context, private val activity: Activity, appId: String, private val bannerId: String,
                private val interstitialId: String, private val splashPosId: String, private val nativeID: String) : IAdMob {
     override fun getNativeAd(type: Int): View {

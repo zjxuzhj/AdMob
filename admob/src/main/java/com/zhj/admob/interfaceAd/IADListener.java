@@ -1,7 +1,7 @@
-package com.zhj.admob;
+package com.zhj.admob.interfaceAd;
 
 /**
- * 广告状态
+ * 统一的广告状态监听接口
  */
 public interface IADListener {
     void onAdLoaded();

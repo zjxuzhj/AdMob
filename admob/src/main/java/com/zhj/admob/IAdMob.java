@@ -3,35 +3,36 @@ package com.zhj.admob;
 import android.content.Intent;
 import android.view.View;
 
-import com.google.android.gms.ads.formats.UnifiedNativeAdView;
+import com.zhj.admob.interfaceAd.IInterstitialAd;
 
+/**
+ * 广告顶层代理类实现接口
+ */
 public interface IAdMob {
     /**
      * 加载必要资源
      * 初始化sdk
      */
-    public void initAdSdk();
+    void initAdSdk();
 
     /**
      * 获得banner的view
-     * @return
      */
-    public View getBannerView();
+    View getBannerView();
 
     /**
-     * 获得一个
+     * 获得插屏广告
      * @return
      */
-    public IInterstitialAd getIInterstitialAd();
+    IInterstitialAd getIInterstitialAd();
 
     /**
      * 获得开屏广告
      */
-    public void getSplashAD(Intent intent);
+    void getSplashAD(Intent intent);
 
     /**
      * 获得原生广告
-     * @return
      */
-    public View getNativeAd(int type);
+    View getNativeAd(int type);
 }

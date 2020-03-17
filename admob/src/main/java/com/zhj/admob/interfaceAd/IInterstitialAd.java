@@ -1,9 +1,11 @@
-package com.zhj.admob;
+package com.zhj.admob.interfaceAd;
 
 import android.app.Activity;
 
+import com.zhj.admob.interfaceAd.IADListener;
+
 /**
- * Created by HongJay on 2019-10-30.
+ * 插屏广告接口
  */
 public interface IInterstitialAd {
     /**
