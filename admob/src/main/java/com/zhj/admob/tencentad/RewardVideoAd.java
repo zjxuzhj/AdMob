@@ -5,11 +5,10 @@ import android.content.Context;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.qq.e.ads.interstitial2.UnifiedInterstitialAD;
-import com.qq.e.ads.interstitial2.UnifiedInterstitialADListener;
 import com.qq.e.ads.rewardvideo.RewardVideoAD;
+import com.qq.e.ads.rewardvideo.RewardVideoADListener;
 import com.qq.e.comm.util.AdError;
-import com.zhj.admob.interfaceAd.IADListener;
+import com.zhj.admob.interfaceAd.IRewardVideoADListener;
 import com.zhj.admob.interfaceAd.IRewardVideoAd;
 
 /**
@@ -19,7 +18,7 @@ public class RewardVideoAd implements IRewardVideoAd {
     private RewardVideoAD _mRewardVideoAD;
     private String appId, adId;
 
-    RewardVideoAd(Context context, String appId, String adId) {
+    public RewardVideoAd(Context context, String appId, String adId) {
         this.appId = appId;
         this.adId = adId;
     }
@@ -40,66 +39,62 @@ public class RewardVideoAd implements IRewardVideoAd {
     }
 
     @Override
-    public void showAsPopupWindow() {
+    public void addInterstitialADListener(Activity context, final IRewardVideoADListener rewardVideoADListener) {
+        if (_mRewardVideoAD == null) {
+            _mRewardVideoAD = new RewardVideoAD(context, appId, adId, new RewardVideoADListener() {
 
-    }
+                @Override
+                public void onADLoad() {
+                    rewardVideoADListener.onADLoad();
+                    Log.i("admob", "onADLoad");
+                }
 
-    @Override
-    public void destroy() {
-    }
+                @Override
+                public void onVideoCached() {
+                    Log.i("admob", "onVideoCached");
+                }
 
-    @Override
-    public void addInterstitialADListener(Activity context, final IADListener unifiedInterstitialADListener) {
-//        if (_mRewardVideoAD == null) {
-//            _mRewardVideoAD = new UnifiedInterstitialAD(context, appId, adId, new UnifiedInterstitialADListener() {
-//                @Override
-//                public void onADReceive() {
-//                    Log.i("admob", "onADReceive");
-//                    unifiedInterstitialADListener.onAdLoaded();
-//                }
-//
-//                @Override
-//                public void onVideoCached() {
-//
-//                }
-//
-//                @Override
-//                public void onNoAD(AdError adError) {
-//                    Log.i("admob", "adError");
-//                    unifiedInterstitialADListener.onAdLoaded();
-//                }
-//
-//                @Override
-//                public void onADOpened() {
-//                    Log.i("admob", "onADOpened");
-//                    unifiedInterstitialADListener.onAdOpened();
-//                }
-//
-//                @Override
-//                public void onADExposure() {
-//                    Log.i("admob", "onADExposure");
-//                    unifiedInterstitialADListener.onADExposure();
-//                }
-//
-//                @Override
-//                public void onADClicked() {
-//                    Log.i("admob", "onADClicked");
-//                    unifiedInterstitialADListener.onAdClicked();
-//                }
-//
-//                @Override
-//                public void onADLeftApplication() {
-//                    Log.i("admob", "onADLeftApplication");
-//                    unifiedInterstitialADListener.onAdLeftApplication();
-//                }
-//
-//                @Override
-//                public void onADClosed() {
-//                    Log.i("admob", "onADClosed");
-//                    unifiedInterstitialADListener.onAdClosed();
-//                }
-//            });
-//            _mRewardVideoAD.loadAD();
-//        }
+                @Override
+                public void onADShow() {
+                    Log.i("admob", "onADShow");
+                }
+
+                @Override
+                public void onADExpose() {
+                    Log.i("admob", "onADExpose");
+                }
+
+                @Override
+                public void onReward() {
+                    rewardVideoADListener.onReward();
+                    Log.i("admob", "onReward");
+                }
+
+                @Override
+                public void onADClick() {
+                    rewardVideoADListener.onADClick();
+                    Log.i("admob", "onADClick");
+                }
+
+                @Override
+                public void onVideoComplete() {
+                    rewardVideoADListener.onVideoComplete();
+                    Log.i("admob", "onVideoComplete");
+                }
+
+                @Override
+                public void onADClose() {
+                    rewardVideoADListener.onADClose();
+                    Log.i("admob", "onADClose");
+                }
+
+                @Override
+                public void onError(AdError adError) {
+                    rewardVideoADListener.onError(adError);
+                    Log.i("admob", "onError");
+                }
+            });
+            _mRewardVideoAD.loadAD();
+        }
     }
 }

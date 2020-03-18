@@ -16,4 +16,5 @@ object AdConstants {
     const val GBannerID = "ca-app-pub-8931961554971597/2063501880"
     const val GInterstitialID = "ca-app-pub-8931961554971597/8854758051"
     const val GRewardVideoID = "ca-app-pub-8931961554971597/7578190979"
+    const val GTestRewardVideoID = "ca-app-pub-3940256099942544/5224354917"
 }

@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
@@ -10,7 +10,7 @@ android {
     defaultConfig {
 //        applicationId "com.zhj.admob"
 //        applicationId "com.zhj.icbcloser"
-        applicationId "com.zhj.lianai"
+//        applicationId "com.zhj.lianai"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1

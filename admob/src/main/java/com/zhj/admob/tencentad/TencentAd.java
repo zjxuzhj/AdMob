@@ -58,44 +58,44 @@ public class TencentAd implements IAdMob {
             @Override
             public void onNoAD(AdError error) {
                 Log.i(
-                        "AD_DEMO",
+                        "admob",
                         String.format("Banner onNoAD，eCode = %d, eMsg = %s", error.getErrorCode(),
                                 error.getErrorMsg()));
             }
 
             @Override
             public void onADReceive() {
-                Log.i("aa", "onADReceive");
+                Log.i("admob", "onADReceive");
             }
 
             @Override
             public void onADExposure() {
-                Log.i("aa", "onADExposure");
+                Log.i("admob", "onADExposure");
             }
 
             @Override
             public void onADClosed() {
-                Log.i("aa", "onADClosed");
+                Log.i("admob", "onADClosed");
             }
 
             @Override
             public void onADClicked() {
-                Log.i("aa", "onADClicked");
+                Log.i("admob", "onADClicked");
             }
 
             @Override
             public void onADLeftApplication() {
-                Log.i("aa", "onADLeftApplication");
+                Log.i("admob", "onADLeftApplication");
             }
 
             @Override
             public void onADOpenOverlay() {
-                Log.i("aa", "onADOpenOverlay");
+                Log.i("admob", "onADOpenOverlay");
             }
 
             @Override
             public void onADCloseOverlay() {
-                Log.i("aa", "onADCloseOverlay");
+                Log.i("admob", "onADCloseOverlay");
             }
 
         });

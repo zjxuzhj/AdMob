@@ -7,23 +7,13 @@ import android.app.Activity;
  */
 public interface IRewardVideoAd {
     /**
-     * 展示插屏广告，有遮罩
+     * 展示激励广告
      */
     void show();
 
     /**
-     * 展示插屏广告，无遮罩
-     */
-    void showAsPopupWindow();
-
-    /**
-     * 广点通的插屏广告需要销毁
-     */
-    void destroy();
-
-    /**
      * 添加广告监听
      */
-    public void addInterstitialADListener(Activity context, IADListener unifiedInterstitialADListener);
+    public void addInterstitialADListener(Activity context, IRewardVideoADListener rewardVideoADListener);
 
 }
