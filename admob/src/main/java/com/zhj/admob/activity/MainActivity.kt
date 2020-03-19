@@ -30,9 +30,6 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * 获取广告服务
-     *
-     * @param context
-     * @return
      */
     private fun getAdMob(context: Context, activity: Activity): IAdMob {
         return if (isGoogleAd) {

@@ -6,8 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.ads.formats.UnifiedNativeAd
-import com.google.android.gms.ads.reward.RewardedVideoAd
 import com.qq.e.comm.util.AdError
 import com.zhj.admob.IAdMob
 import com.zhj.admob.R
@@ -17,11 +15,10 @@ import com.zhj.admob.interfaceAd.IRewardVideoADListener
 import com.zhj.admob.tencentad.TencentAd
 import kotlinx.android.synthetic.main.activity_main.*
 
-
+/**
+ * 广告demo类，用于展示各种广告的调用方法
+ */
 class DemoMainActivity : AppCompatActivity() {
-    private var nativeAd: UnifiedNativeAd? = null
-    private val ADMOB_AD_UNIT_ID = "ca-app-pub-3940256099942544/2247696110"
-    private lateinit var mRewardedVideoAd: RewardedVideoAd
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,9 +100,6 @@ class DemoMainActivity : AppCompatActivity() {
 
     /**
      * 获取广告服务
-     *
-     * @param context
-     * @return
      */
     private fun getAdMob(context: Context, activity: Activity): IAdMob {
         return if (isGoogleAd) {

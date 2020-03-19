@@ -27,7 +27,6 @@ import static com.zhj.admob.interfaceAd.AdConstants.TBannerID;
 import static com.zhj.admob.interfaceAd.AdConstants.TInterstitialID;
 import static com.zhj.admob.interfaceAd.AdConstants.TNativeID;
 import static com.zhj.admob.interfaceAd.AdConstants.TRewardVideID;
-import static com.zhj.admob.interfaceAd.AdConstants.TSplashPosID;
 
 /**
  * 腾讯广告代理类
@@ -60,7 +59,7 @@ public class TencentAd implements IAdMob {
             @Override
             public void onNoAD(AdError error) {
                 Log.i("admob", String.format("Banner onNoAD，eCode = %d, eMsg = %s", error.getErrorCode(),
-                                error.getErrorMsg()));
+                        error.getErrorMsg()));
             }
 
             @Override

@@ -23,13 +23,11 @@ public interface IAdMob {
 
     /**
      * 获得插屏广告
-     * @return IInterstitialAd
      */
     IInterstitialAd getInterstitialAd();
 
     /**
      * 获得激励视频广告
-     * @return IRewardVideoAd
      */
     IRewardVideoAd getRewardVideoAd();
 

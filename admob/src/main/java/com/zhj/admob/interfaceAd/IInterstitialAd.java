@@ -2,8 +2,6 @@ package com.zhj.admob.interfaceAd;
 
 import android.app.Activity;
 
-import com.zhj.admob.interfaceAd.IADListener;
-
 /**
  * 插屏广告接口
  */

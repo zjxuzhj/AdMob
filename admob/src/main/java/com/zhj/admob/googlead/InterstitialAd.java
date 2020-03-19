@@ -26,7 +26,7 @@ public class InterstitialAd implements IInterstitialAd {
         if (interstitialAD.isLoaded()) {
             interstitialAD.show();
         } else {
-            Log.d("TAG", "The interstitial wasn't loaded yet.");
+            Log.d("admob", "The interstitial wasn't loaded yet.");
         }
     }
 
