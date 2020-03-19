@@ -54,8 +54,8 @@ public class InterstitialAd implements IInterstitialAd {
 
                 @Override
                 public void onNoAD(AdError adError) {
-                    Log.i("admob", "adError");
-                    interstitialADListener.onNoAD(adError);
+                    Log.i("admob", String.format("adError, eCode=%d, errorMsg=%s", adError.getErrorCode(), adError.getErrorMsg()));
+                    interstitialADListener.onNoAD();
                 }
 
                 @Override

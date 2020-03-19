@@ -90,8 +90,8 @@ public class RewardVideoAd implements IRewardVideoAd {
 
                 @Override
                 public void onError(AdError adError) {
-                    rewardVideoADListener.onError(adError);
-                    Log.i("admob", "onError");
+                    rewardVideoADListener.onError();
+                    Log.i("admob", String.format("onError, eCode=%d, errorMsg=%s", adError.getErrorCode(), adError.getErrorMsg()));
                 }
             });
             _mRewardVideoAD.loadAD();

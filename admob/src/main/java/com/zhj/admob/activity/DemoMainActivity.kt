@@ -46,7 +46,7 @@ class DemoMainActivity : AppCompatActivity() {
             override fun onVideoComplete() {
             }
 
-            override fun onError(var1: AdError?) {
+            override fun onError() {
             }
         })
         rewardVideoAd.show()
@@ -62,8 +62,8 @@ class DemoMainActivity : AppCompatActivity() {
             override fun onAdClicked() {
             }
 
-            override fun onNoAD(error: AdError?) {
-                Toast.makeText(this@DemoMainActivity, error!!.errorMsg, Toast.LENGTH_SHORT).show()
+            override fun onNoAD() {
+                Toast.makeText(this@DemoMainActivity, "错误", Toast.LENGTH_SHORT).show()
             }
 
             override fun onAdLoaded() {

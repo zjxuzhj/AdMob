@@ -23,5 +23,5 @@ public interface IRewardVideoADListener {
     void onADClose();
 
     //广告流程出错，AdError中包含错误码和错误描述  同谷歌 onRewardedVideoAdFailedToLoad（int errorCode）
-    void onError(AdError var1);
+    void onError();
 }

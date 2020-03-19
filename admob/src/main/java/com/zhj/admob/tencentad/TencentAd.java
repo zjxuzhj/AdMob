@@ -16,17 +16,12 @@ import com.qq.e.ads.nativ.NativeExpressADView;
 import com.qq.e.comm.util.AdError;
 import com.zhj.admob.IAdMob;
 import com.zhj.admob.activity.SplashAdActivity;
+import com.zhj.admob.interfaceAd.AdConstants;
 import com.zhj.admob.interfaceAd.IInterstitialAd;
 import com.zhj.admob.interfaceAd.IRewardVideoAd;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.zhj.admob.interfaceAd.AdConstants.TAPPID;
-import static com.zhj.admob.interfaceAd.AdConstants.TBannerID;
-import static com.zhj.admob.interfaceAd.AdConstants.TInterstitialID;
-import static com.zhj.admob.interfaceAd.AdConstants.TNativeID;
-import static com.zhj.admob.interfaceAd.AdConstants.TRewardVideID;
 
 /**
  * 腾讯广告代理类
@@ -49,12 +44,12 @@ public class TencentAd implements IAdMob {
 
     @Override
     public View getBannerView() {
-        String posId = TBannerID;
+        String posId = AdConstants.Companion.getTBannerID();
         if (this.bv != null && this.posId.equals(posId)) {
             return this.bv;
         }
         this.posId = posId;
-        this.bv = new UnifiedBannerView(activity, TAPPID, posId, new UnifiedBannerADListener() {
+        this.bv = new UnifiedBannerView(activity, AdConstants.Companion.getTAPPID(), posId, new UnifiedBannerADListener() {
 
             @Override
             public void onNoAD(AdError error) {
@@ -104,12 +99,12 @@ public class TencentAd implements IAdMob {
 
     @Override
     public IInterstitialAd getInterstitialAd() {
-        return new InterstitialAd(context, TAPPID, TInterstitialID);
+        return new InterstitialAd(context, AdConstants.Companion.getTAPPID(), AdConstants.Companion.getTInterstitialID());
     }
 
     @Override
     public IRewardVideoAd getRewardVideoAd() {
-        return new RewardVideoAd(context, TAPPID, TRewardVideID); // 有声播放;
+        return new RewardVideoAd(context, AdConstants.Companion.getTAPPID(), AdConstants.Companion.getTRewardVideID()); // 有声播放;
     }
 
     @Override
@@ -123,7 +118,7 @@ public class TencentAd implements IAdMob {
     public View getNativeAd(int type) {
         final FrameLayout view = new FrameLayout(context);
         ADSize adSize = new ADSize(ADSize.FULL_WIDTH, 230); // 消息流中用AUTO_HEIGHT
-        NativeExpressAD mADManager = new NativeExpressAD(context, adSize, TAPPID, TNativeID, new NativeExpressAD.NativeExpressADListener() {
+        NativeExpressAD mADManager = new NativeExpressAD(context, adSize, AdConstants.Companion.getTAPPID(), AdConstants.Companion.getTNativeID(), new NativeExpressAD.NativeExpressADListener() {
             @Override
             public void onADLoaded(List<NativeExpressADView> list) {
                 NativeExpressADView nativeExpressADView = list.get(0);

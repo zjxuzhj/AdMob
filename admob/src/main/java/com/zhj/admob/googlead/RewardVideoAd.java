@@ -9,11 +9,9 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
-import com.qq.e.comm.util.AdError;
+import com.zhj.admob.interfaceAd.AdConstants;
 import com.zhj.admob.interfaceAd.IRewardVideoADListener;
 import com.zhj.admob.interfaceAd.IRewardVideoAd;
-
-import static com.zhj.admob.interfaceAd.AdConstants.GRewardVideoID;
 
 /**
  * 谷歌激励广告类
@@ -71,9 +69,8 @@ public class RewardVideoAd implements IRewardVideoAd {
 
             @Override
             public void onRewardedVideoAdFailedToLoad(int i) {
-                AdError googleError = new AdError(i, "googleError");
-                rewardADListener.onError(googleError);
-                Log.i("admob", "onRewardedVideoAdFailedToLoad:" + googleError);
+                rewardADListener.onError();
+                Log.i("admob", String.format("onRewardedVideoAdFailedToLoad, eCode=%d, errorMsg=%s", i, "googleError"));
             }
 
             @Override
@@ -82,6 +79,6 @@ public class RewardVideoAd implements IRewardVideoAd {
                 Log.i("admob", "onRewardedVideoAdFailedToLoad");
             }
         });
-        _mRewardVideoAD.loadAd(GRewardVideoID, new AdRequest.Builder().build());
+        _mRewardVideoAD.loadAd(AdConstants.Companion.getGRewardVideoID(), new AdRequest.Builder().build());
     }
 }

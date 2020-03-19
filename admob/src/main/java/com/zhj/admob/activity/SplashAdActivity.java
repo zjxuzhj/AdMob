@@ -9,9 +9,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,11 +18,8 @@ import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.VideoController;
-import com.google.android.gms.ads.formats.MediaView;
 import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
-import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.ads.splash.SplashADListener;
 import com.qq.e.comm.util.AdError;
@@ -68,11 +63,7 @@ public class SplashAdActivity extends AppCompatActivity {
             splashHolder.setImageDrawable(getResources().getDrawable(backgroundImageId));
         }
         if (have_ad && !isTest) {
-            if (!TextUtils.isEmpty(AdConstants.TAPPID) && !TextUtils.isEmpty(AdConstants.TSplashPosID)) {
-                fetchSplashAD(this, container, skipView, 4000);
-            } else {
-                jumpToNextAct(jumpClassName);
-            }
+            fetchSplashAD(this, container, skipView, 4000);
         } else {
             jumpToNextAct(jumpClassName);
         }
@@ -106,7 +97,7 @@ public class SplashAdActivity extends AppCompatActivity {
      */
     private void fetchSplashAD(final Activity activity, final ViewGroup adContainer, View skipContainer, final int fetchDelay) {
         if (isGoogle) {
-            AdLoader adLoader = new AdLoader.Builder(activity, AdConstants.GSplashPosID)
+            AdLoader adLoader = new AdLoader.Builder(activity, AdConstants.Companion.getGSplashPosID())
                     .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
                         @Override
                         public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
@@ -119,8 +110,8 @@ public class SplashAdActivity extends AppCompatActivity {
                     .withAdListener(new AdListener() {
                         @Override
                         public void onAdFailedToLoad(int errorCode) {
-                            Log.i("admob",String.format("LoadSplashADFail, eCode=%d, errorMsg=%s", errorCode,
-                                            errorCode));
+                            Log.i("admob", String.format("LoadSplashADFail, eCode=%d, errorMsg=%s", errorCode,
+                                    errorCode));
                             /** 如果加载广告失败，则直接跳转 */
                             jumpToNextAct(jumpClassName);
                         }
@@ -171,7 +162,7 @@ public class SplashAdActivity extends AppCompatActivity {
                 }
             });
         } else {
-            SplashAD splashAD = new SplashAD(activity, skipContainer, AdConstants.TAPPID, AdConstants.TSplashPosID, new SplashADListener() {
+            SplashAD splashAD = new SplashAD(activity, skipContainer, AdConstants.Companion.getTAPPID(), AdConstants.Companion.getTSplashPosID(), new SplashADListener() {
                 @Override
                 public void onADDismissed() {
                     Log.i("admob", "SplashADDismissed");
@@ -180,8 +171,8 @@ public class SplashAdActivity extends AppCompatActivity {
 
                 @Override
                 public void onNoAD(AdError adError) {
-                    Log.i("admob",String.format("LoadSplashADFail, eCode=%d, errorMsg=%s", adError.getErrorCode(),
-                                    adError.getErrorMsg()));
+                    Log.i("admob", String.format("LoadSplashADFail, eCode=%d, errorMsg=%s", adError.getErrorCode(),
+                            adError.getErrorMsg()));
                     /** 如果加载广告失败，则直接跳转 */
                     jumpToNextAct(jumpClassName);
                 }

@@ -10,7 +10,7 @@ public interface IADListener {
     void onAdLoaded();
 
     //加载失败，error 对象包含了错误码和错误信息
-    void onNoAD(AdError error);
+    void onNoAD();
 
     //展开时回调
     void onAdOpened();

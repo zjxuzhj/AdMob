@@ -12,9 +12,9 @@ import com.zhj.admob.interfaceAd.IInterstitialAd
 import com.zhj.admob.interfaceAd.INativeAd.SMALL_NATIVE_AD
 import com.zhj.admob.R
 import com.zhj.admob.activity.SplashAdActivity
-import com.zhj.admob.interfaceAd.AdConstants.GBannerID
-import com.zhj.admob.interfaceAd.AdConstants.GInterstitialID
-import com.zhj.admob.interfaceAd.AdConstants.GSplashPosID
+import com.zhj.admob.interfaceAd.AdConstants.Companion.GBannerID
+import com.zhj.admob.interfaceAd.AdConstants.Companion.GInterstitialID
+import com.zhj.admob.interfaceAd.AdConstants.Companion.GSplashPosID
 import com.zhj.admob.interfaceAd.IRewardVideoAd
 
 /**
