@@ -1,4 +1,4 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
@@ -9,7 +9,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
 //        applicationId "com.zhj.admob"
-//        applicationId "com.zhj.icbcloser"
+        applicationId "com.zhj.icbcloser"
 //        applicationId "com.zhj.lianai"
         minSdkVersion 21
         targetSdkVersion 28

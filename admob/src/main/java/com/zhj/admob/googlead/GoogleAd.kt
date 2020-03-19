@@ -11,20 +11,23 @@ import com.zhj.admob.IAdMob
 import com.zhj.admob.interfaceAd.IInterstitialAd
 import com.zhj.admob.interfaceAd.INativeAd.SMALL_NATIVE_AD
 import com.zhj.admob.R
-import com.zhj.admob.activity.GSplashAdActivity
+import com.zhj.admob.activity.SplashAdActivity
+import com.zhj.admob.interfaceAd.AdConstants.GBannerID
+import com.zhj.admob.interfaceAd.AdConstants.GInterstitialID
+import com.zhj.admob.interfaceAd.AdConstants.GSplashPosID
+import com.zhj.admob.interfaceAd.IRewardVideoAd
 
 /**
  * 谷歌广告代理类
  */
-class GoogleAd(private val context: Context, private val activity: Activity, appId: String, private val bannerId: String,
-               private val interstitialId: String, private val splashPosId: String, private val nativeID: String) : IAdMob {
+class GoogleAd(private val context: Context, private val activity: Activity) : IAdMob {
     override fun getNativeAd(type: Int): View {
         val templateView: TemplateView = if (SMALL_NATIVE_AD == type) {
             TemplateView(activity, R.layout.gnt_small_template_view)
         } else {
             TemplateView(activity, R.layout.gnt_medium_template_view)
         }
-        val adLoader = AdLoader.Builder(activity, splashPosId)
+        val adLoader = AdLoader.Builder(activity, GSplashPosID)
                 .forUnifiedNativeAd { unifiedNativeAd ->
                     templateView.setNativeAd(unifiedNativeAd)
                 }
@@ -43,15 +46,17 @@ class GoogleAd(private val context: Context, private val activity: Activity, app
     }
 
     override fun getSplashAD(intent: Intent) {
-        intent.setClass(activity, GSplashAdActivity::class.java)
-        intent.putExtra("appID", "saaaa")
-        intent.putExtra("SplashPosID", splashPosId)
+        intent.setClass(activity, SplashAdActivity::class.java)
         activity.startActivity(intent)
         activity.finish()
     }
 
-    override fun getIInterstitialAd(): IInterstitialAd {
-        return InterstitialAd(context, interstitialId)
+    override fun getInterstitialAd(): IInterstitialAd {
+        return InterstitialAd(context, GInterstitialID)
+    }
+
+    override fun getRewardVideoAd(): IRewardVideoAd {
+        return RewardVideoAd(context)
     }
 
     override fun initAdSdk() {
@@ -61,7 +66,7 @@ class GoogleAd(private val context: Context, private val activity: Activity, app
     override fun getBannerView(): View {
         val adView = AdView(context)
         adView.adSize = AdSize.BANNER
-        adView.adUnitId = bannerId
+        adView.adUnitId = GBannerID
         adView.loadAd(AdRequest.Builder().build())
         return adView
     }

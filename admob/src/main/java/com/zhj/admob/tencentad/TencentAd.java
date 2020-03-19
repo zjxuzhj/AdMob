@@ -15,11 +15,19 @@ import com.qq.e.ads.nativ.NativeExpressAD;
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.qq.e.comm.util.AdError;
 import com.zhj.admob.IAdMob;
+import com.zhj.admob.activity.SplashAdActivity;
 import com.zhj.admob.interfaceAd.IInterstitialAd;
-import com.zhj.admob.activity.TXSplashAdActivity;
+import com.zhj.admob.interfaceAd.IRewardVideoAd;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.zhj.admob.interfaceAd.AdConstants.TAPPID;
+import static com.zhj.admob.interfaceAd.AdConstants.TBannerID;
+import static com.zhj.admob.interfaceAd.AdConstants.TInterstitialID;
+import static com.zhj.admob.interfaceAd.AdConstants.TNativeID;
+import static com.zhj.admob.interfaceAd.AdConstants.TRewardVideID;
+import static com.zhj.admob.interfaceAd.AdConstants.TSplashPosID;
 
 /**
  * 腾讯广告代理类
@@ -29,16 +37,10 @@ public class TencentAd implements IAdMob {
     private String posId;
     private Activity activity;
     private Context context;
-    private String appId, bannerId, interstitialId, splashPosId, nativeId;
 
-    public TencentAd(Context context, Activity activity, String appId, String bannerId, String interstitialId, String splashPosId, String nativeId) {
+    public TencentAd(Context context, Activity activity) {
         this.context = context;
         this.activity = activity;
-        this.appId = appId;
-        this.bannerId = bannerId;
-        this.interstitialId = interstitialId;
-        this.splashPosId = splashPosId;
-        this.nativeId = nativeId;
     }
 
     @Override
@@ -48,18 +50,16 @@ public class TencentAd implements IAdMob {
 
     @Override
     public View getBannerView() {
-        String posId = bannerId;
+        String posId = TBannerID;
         if (this.bv != null && this.posId.equals(posId)) {
             return this.bv;
         }
         this.posId = posId;
-        this.bv = new UnifiedBannerView(activity, appId, posId, new UnifiedBannerADListener() {
+        this.bv = new UnifiedBannerView(activity, TAPPID, posId, new UnifiedBannerADListener() {
 
             @Override
             public void onNoAD(AdError error) {
-                Log.i(
-                        "admob",
-                        String.format("Banner onNoAD，eCode = %d, eMsg = %s", error.getErrorCode(),
+                Log.i("admob", String.format("Banner onNoAD，eCode = %d, eMsg = %s", error.getErrorCode(),
                                 error.getErrorMsg()));
             }
 
@@ -104,15 +104,18 @@ public class TencentAd implements IAdMob {
     }
 
     @Override
-    public IInterstitialAd getIInterstitialAd() {
-        return new InterstitialAd(context, appId, interstitialId);
+    public IInterstitialAd getInterstitialAd() {
+        return new InterstitialAd(context, TAPPID, TInterstitialID);
+    }
+
+    @Override
+    public IRewardVideoAd getRewardVideoAd() {
+        return new RewardVideoAd(context, TAPPID, TRewardVideID); // 有声播放;
     }
 
     @Override
     public void getSplashAD(Intent intent) {
-        intent.setClass(context, TXSplashAdActivity.class);
-        intent.putExtra("appID", appId);
-        intent.putExtra("SplashPosID", splashPosId);
+        intent.setClass(context, SplashAdActivity.class);
         activity.startActivity(intent);
         activity.finish();
     }
@@ -121,7 +124,7 @@ public class TencentAd implements IAdMob {
     public View getNativeAd(int type) {
         final FrameLayout view = new FrameLayout(context);
         ADSize adSize = new ADSize(ADSize.FULL_WIDTH, 230); // 消息流中用AUTO_HEIGHT
-        NativeExpressAD mADManager = new NativeExpressAD(context, adSize, appId, nativeId, new NativeExpressAD.NativeExpressADListener() {
+        NativeExpressAD mADManager = new NativeExpressAD(context, adSize, TAPPID, TNativeID, new NativeExpressAD.NativeExpressADListener() {
             @Override
             public void onADLoaded(List<NativeExpressADView> list) {
                 NativeExpressADView nativeExpressADView = list.get(0);
@@ -131,47 +134,47 @@ public class TencentAd implements IAdMob {
 
             @Override
             public void onRenderFail(NativeExpressADView nativeExpressADView) {
-
+                Log.i("admob", "onRenderFail");
             }
 
             @Override
             public void onRenderSuccess(NativeExpressADView nativeExpressADView) {
-
+                Log.i("admob", "onRenderSuccess");
             }
 
             @Override
             public void onADExposure(NativeExpressADView nativeExpressADView) {
-
+                Log.i("admob", "onADExposure");
             }
 
             @Override
             public void onADClicked(NativeExpressADView nativeExpressADView) {
-
+                Log.i("admob", "onADClicked");
             }
 
             @Override
             public void onADClosed(NativeExpressADView nativeExpressADView) {
-
+                Log.i("admob", "onADClosed");
             }
 
             @Override
             public void onADLeftApplication(NativeExpressADView nativeExpressADView) {
-
+                Log.i("admob", "onADLeftApplication");
             }
 
             @Override
             public void onADOpenOverlay(NativeExpressADView nativeExpressADView) {
-
+                Log.i("admob", "onADOpenOverlay");
             }
 
             @Override
             public void onADCloseOverlay(NativeExpressADView nativeExpressADView) {
-
+                Log.i("admob", "onADCloseOverlay");
             }
 
             @Override
             public void onNoAD(AdError adError) {
-
+                Log.i("admob", "onNoAD");
             }
         });
         mADManager.setDownAPPConfirmPolicy(DownAPPConfirmPolicy.Default);

@@ -13,7 +13,7 @@ import com.qq.e.comm.util.AdError;
 import com.zhj.admob.interfaceAd.IRewardVideoADListener;
 import com.zhj.admob.interfaceAd.IRewardVideoAd;
 
-import static com.zhj.admob.interfaceAd.AdConstants.GTestRewardVideoID;
+import static com.zhj.admob.interfaceAd.AdConstants.GRewardVideoID;
 
 /**
  * 谷歌激励广告类
@@ -82,6 +82,6 @@ public class RewardVideoAd implements IRewardVideoAd {
                 Log.i("admob", "onRewardedVideoAdFailedToLoad");
             }
         });
-        _mRewardVideoAD.loadAd(GTestRewardVideoID, new AdRequest.Builder().build());
+        _mRewardVideoAD.loadAd(GRewardVideoID, new AdRequest.Builder().build());
     }
 }

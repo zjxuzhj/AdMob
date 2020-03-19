@@ -13,8 +13,7 @@ object AdConstants {
     const val GSplashPosID = "ca-app-pub-3940256099942544/2247696110"
     const val GNativeID = "ca-app-pub-3940256099942544/2247696110"
     const val GAPPID = "ca-app-pub-8931961554971597~7543877514"
-    const val GBannerID = "ca-app-pub-8931961554971597/2063501880"
-    const val GInterstitialID = "ca-app-pub-8931961554971597/8854758051"
-    const val GRewardVideoID = "ca-app-pub-8931961554971597/7578190979"
-    const val GTestRewardVideoID = "ca-app-pub-3940256099942544/5224354917"
+    const val GBannerID = "ca-app-pub-3940256099942544/6300978111"
+    const val GInterstitialID = "ca-app-pub-3940256099942544/1033173712"
+    const val GRewardVideoID = "ca-app-pub-3940256099942544/5224354917"
 }

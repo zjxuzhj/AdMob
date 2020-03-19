@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.zhj.admob.interfaceAd.IInterstitialAd;
+import com.zhj.admob.interfaceAd.IRewardVideoAd;
 
 /**
  * 广告顶层代理类实现接口
@@ -22,9 +23,15 @@ public interface IAdMob {
 
     /**
      * 获得插屏广告
-     * @return
+     * @return IInterstitialAd
      */
-    IInterstitialAd getIInterstitialAd();
+    IInterstitialAd getInterstitialAd();
+
+    /**
+     * 获得激励视频广告
+     * @return IRewardVideoAd
+     */
+    IRewardVideoAd getRewardVideoAd();
 
     /**
      * 获得开屏广告

@@ -29,15 +29,15 @@ import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.ads.splash.SplashADListener;
 import com.qq.e.comm.util.AdError;
 import com.zhj.admob.R;
+import com.zhj.admob.interfaceAd.AdConstants;
 
-public class TXSplashAdActivity extends AppCompatActivity implements SplashADListener {
+public class SplashAdActivity extends AppCompatActivity {
     private TextView skipView;
     private ImageView splashHolder;
     private static final String SKIP_TEXT = "点击跳过 %d";
     public boolean canJump = false;
     private String jumpClassName;
     private boolean isGoogle;
-    private String splashPosID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,6 @@ public class TXSplashAdActivity extends AppCompatActivity implements SplashADLis
         boolean isTest = getIntent().getBooleanExtra("isTest", false);
         isGoogle = getIntent().getBooleanExtra("isGoogle", false);
         int backgroundImageId = getIntent().getIntExtra("backgroundImageId", 0);
-        String appID = getIntent().getStringExtra("appID");
-        splashPosID = getIntent().getStringExtra("SplashPosID");
         jumpClassName = getIntent().getStringExtra("jumpClassName");
         String appName = getIntent().getStringExtra("appName");
         int appLogo = getIntent().getIntExtra("appLogo", 0);
@@ -62,14 +60,16 @@ public class TXSplashAdActivity extends AppCompatActivity implements SplashADLis
         iv_water_mark.setImageDrawable(getDrawable(watermark));
         skipView = findViewById(R.id.anzhi_skip_view);
         splashHolder = findViewById(R.id.anzhi_splash_holder);
-        if(!isGoogle) {
-            splashHolder.setImageDrawable(getResources().getDrawable(backgroundImageId));
-        }else{
 
+        //是否是谷歌
+        if (isGoogle) {
+
+        } else {
+            splashHolder.setImageDrawable(getResources().getDrawable(backgroundImageId));
         }
         if (have_ad && !isTest) {
-            if (!TextUtils.isEmpty(appID) && !TextUtils.isEmpty(splashPosID)) {
-                fetchSplashAD(this, container, skipView, appID, splashPosID, this, 4000);
+            if (!TextUtils.isEmpty(AdConstants.TAPPID) && !TextUtils.isEmpty(AdConstants.TSplashPosID)) {
+                fetchSplashAD(this, container, skipView, 4000);
             } else {
                 jumpToNextAct(jumpClassName);
             }
@@ -79,6 +79,9 @@ public class TXSplashAdActivity extends AppCompatActivity implements SplashADLis
     }
 
     private void jumpToNextAct(String jumpClassName) {
+        if (TextUtils.isEmpty(jumpClassName)) {
+            return;
+        }
         Intent intent = new Intent();
         intent.setClassName(this, jumpClassName);
         boolean isApplication = getIntent().getBooleanExtra("isApplication", false);
@@ -99,33 +102,63 @@ public class TXSplashAdActivity extends AppCompatActivity implements SplashADLis
      * @param activity      展示广告的activity
      * @param adContainer   展示广告的大容器
      * @param skipContainer 自定义的跳过按钮：传入该view给SDK后，SDK会自动给它绑定点击跳过事件。SkipView的样式可以由开发者自由定制，其尺寸限制请参考activity_splash.xml或者接入文档中的说明。
-     * @param appId         应用ID
-     * @param posId         广告位ID
-     * @param adListener    广告状态监听器
      * @param fetchDelay    拉取广告的超时时长：取值范围[3000, 5000]，设为0表示使用广点通SDK默认的超时时长。
      */
-    private void fetchSplashAD(final Activity activity, final ViewGroup adContainer, View skipContainer,
-                               String appId, String posId, SplashADListener adListener, int fetchDelay) {
+    private void fetchSplashAD(final Activity activity, final ViewGroup adContainer, View skipContainer, final int fetchDelay) {
         if (isGoogle) {
-            AdLoader adLoader = new AdLoader.Builder(activity, posId)
+            AdLoader adLoader = new AdLoader.Builder(activity, AdConstants.GSplashPosID)
                     .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
                         @Override
                         public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
                             TemplateView templateView = new TemplateView(activity, R.layout.gnt_medium_template_view);
                             templateView.setNativeAd(unifiedNativeAd);
                             adContainer.addView(templateView);
-                            downTime(4000);
+                            downTime(fetchDelay);
                         }
                     })
                     .withAdListener(new AdListener() {
                         @Override
                         public void onAdFailedToLoad(int errorCode) {
-                            // Handle the failure by logging, altering the UI, and so on.
+                            Log.i("admob",String.format("LoadSplashADFail, eCode=%d, errorMsg=%s", errorCode,
+                                            errorCode));
+                            /** 如果加载广告失败，则直接跳转 */
+                            jumpToNextAct(jumpClassName);
+                        }
+
+                        @Override
+                        public void onAdClicked() {
+                            Log.i("admob", "SplashADClicked");
+                        }
+
+                        @Override
+                        public void onAdClosed() {
+                            Log.i("admob", "SplashADDismissed");
+                            next();
+                        }
+
+                        @Override
+                        public void onAdLoaded() {
+                            Log.i("admob", "SplashADPresent");
+                            splashHolder.setVisibility(View.INVISIBLE); // 广告展示后一定要把预设的开屏图片隐藏起来
+                        }
+
+                        @Override
+                        public void onAdOpened() {
+                            Log.i("admob", "SplashADPresent");
+                            splashHolder.setVisibility(View.INVISIBLE); // 广告展示后一定要把预设的开屏图片隐藏起来
+                        }
+
+                        @Override
+                        public void onAdImpression() {
+                            Log.i("admob", "onAdImpression");
+                        }
+
+                        @Override
+                        public void onAdLeftApplication() {
+                            Log.i("admob", "onAdLeftApplication");
                         }
                     })
                     .withNativeAdOptions(new NativeAdOptions.Builder()
-                            // Methods in the NativeAdOptions.Builder class can be
-                            // used here to specify individual options settings.
                             .build())
                     .build();
 
@@ -138,7 +171,54 @@ public class TXSplashAdActivity extends AppCompatActivity implements SplashADLis
                 }
             });
         } else {
-            SplashAD splashAD = new SplashAD(activity, skipContainer, appId, posId, adListener, fetchDelay);
+            SplashAD splashAD = new SplashAD(activity, skipContainer, AdConstants.TAPPID, AdConstants.TSplashPosID, new SplashADListener() {
+                @Override
+                public void onADDismissed() {
+                    Log.i("admob", "SplashADDismissed");
+                    next();
+                }
+
+                @Override
+                public void onNoAD(AdError adError) {
+                    Log.i("admob",String.format("LoadSplashADFail, eCode=%d, errorMsg=%s", adError.getErrorCode(),
+                                    adError.getErrorMsg()));
+                    /** 如果加载广告失败，则直接跳转 */
+                    jumpToNextAct(jumpClassName);
+                }
+
+                @Override
+                public void onADPresent() {
+                    Log.i("admob", "SplashADPresent");
+                    splashHolder.setVisibility(View.INVISIBLE); // 广告展示后一定要把预设的开屏图片隐藏起来
+                }
+
+                @Override
+                public void onADClicked() {
+                    Log.i("admob", "SplashADClicked");
+                }
+
+                /**
+                 * 倒计时回调，返回广告还将被展示的剩余时间。
+                 * 通过这个接口，开发者可以自行决定是否显示倒计时提示，或者还剩几秒的时候显示倒计时
+                 *
+                 * @param millisUntilFinished 剩余毫秒数
+                 */
+                @Override
+                public void onADTick(long millisUntilFinished) {
+                    Log.i("admob", "SplashADTick " + millisUntilFinished + "ms");
+                    skipView.setText(String.format(SKIP_TEXT, Math.round(millisUntilFinished / 1000f)));
+                }
+
+                @Override
+                public void onADExposure() {
+                    Log.i("admob", "onADExposure");
+                }
+
+                @Override
+                public void onADLoaded(long l) {
+                    Log.i("admob", "onADLoaded");
+                }
+            }, fetchDelay);
             splashAD.fetchAndShowIn(adContainer);
 
         }
@@ -287,55 +367,6 @@ public class TXSplashAdActivity extends AppCompatActivity implements SplashADLis
 //            videoStatus.setText("Video status: Ad does not contain a video asset.");
 //            refresh.setEnabled(true);
 //        }
-    }
-
-    @Override
-    public void onADDismissed() {
-        Log.i("AD_DEMO", "SplashADDismissed");
-        next();
-    }
-
-    @Override
-    public void onNoAD(AdError error) {
-        Log.i(
-                "AD_DEMO",
-                String.format("LoadSplashADFail, eCode=%d, errorMsg=%s", error.getErrorCode(),
-                        error.getErrorMsg()));
-        /** 如果加载广告失败，则直接跳转 */
-        jumpToNextAct(jumpClassName);
-    }
-
-    @Override
-    public void onADPresent() {
-        Log.i("AD_DEMO", "SplashADPresent");
-        splashHolder.setVisibility(View.INVISIBLE); // 广告展示后一定要把预设的开屏图片隐藏起来
-    }
-
-    @Override
-    public void onADClicked() {
-        Log.i("AD_DEMO", "SplashADClicked");
-    }
-
-    /**
-     * 倒计时回调，返回广告还将被展示的剩余时间。
-     * 通过这个接口，开发者可以自行决定是否显示倒计时提示，或者还剩几秒的时候显示倒计时
-     *
-     * @param millisUntilFinished 剩余毫秒数
-     */
-    @Override
-    public void onADTick(long millisUntilFinished) {
-        Log.i("AD_DEMO", "SplashADTick " + millisUntilFinished + "ms");
-        skipView.setText(String.format(SKIP_TEXT, Math.round(millisUntilFinished / 1000f)));
-    }
-
-    @Override
-    public void onADExposure() {
-
-    }
-
-    @Override
-    public void onADLoaded(long l) {
-
     }
 
     /**
